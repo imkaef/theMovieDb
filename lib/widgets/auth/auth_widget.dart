@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_button_style.dart';
+import 'package:the_movie_db/const/routes_screen.dart';
 
 class AuthWidget extends StatefulWidget {
   const AuthWidget({Key? key}) : super(key: key);
@@ -82,8 +83,8 @@ class __FormWidgetState extends State<_FormWidget> {
     print(login);
     print(password);
     if (login == 'admin' && password == 'admin') {
-      print('Open app');
       errorText = null;
+      Navigator.of(context).pushReplacementNamed(RouteScreen.main_screen);
     } else {
       errorText = 'Не верный Логин или пароль';
     }

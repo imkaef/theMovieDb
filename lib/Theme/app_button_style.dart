@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-
 abstract class AppButtonStyle {
   static final linkButton = ButtonStyle(
     foregroundColor: MaterialStateProperty.all(const Color(0xFF01b4e4)),

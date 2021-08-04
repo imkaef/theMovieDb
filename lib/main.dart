@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:the_movie_db/const/routes_screen.dart';
 import 'package:the_movie_db/widgets/auth/auth_widget.dart';
+import 'package:the_movie_db/widgets/main_screen/main_screen_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +29,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: AuthWidget(),
+      routes: {
+        RouteScreen.auth: (context) => AuthWidget(),
+        RouteScreen.main_screen: (context) => MainScreenWidget()
+      },
+      initialRoute: RouteScreen.auth,
     );
   }
 }
