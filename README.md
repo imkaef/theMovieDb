@@ -1,15 +1,23 @@
 # the_movie_db
 
-A new Flutter project.
+Тренировка, создания приложения [The Movie DB](https://www.themoviedb.org/)
 
-## Getting Started
+## Этапы
 
-This project is a starting point for a Flutter application.
+Начало:
+- Верстка интерфейса и мелкие фичи.
 
-A few resources to get you started if this is your first Flutter project:
+Данные:
+- Настройка классов данных
+- Настройка обработчиков информации
+- Обработка json
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+State manage:
+- Запросы в сеть
+- прием данных 
+
+<!-- - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook) -->
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
