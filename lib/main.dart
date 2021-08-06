@@ -4,6 +4,8 @@ import 'package:the_movie_db/const/routes_screen.dart';
 import 'package:the_movie_db/widgets/auth/auth_widget.dart';
 import 'package:the_movie_db/widgets/main_screen/main_screen_widget.dart';
 
+import 'widgets/customProgressBarWidget.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -27,9 +29,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         RouteScreen.auth: (context) => AuthWidget(),
-        RouteScreen.main_screen: (context) => MainScreenWidget()
+        RouteScreen.main_screen: (context) => MainScreenWidget(),
+        RouteScreen.example: (context) => CustomProgressBarWidget(),
       },
-      initialRoute: RouteScreen.auth,
+      initialRoute: RouteScreen.example,
     );
   }
 }
