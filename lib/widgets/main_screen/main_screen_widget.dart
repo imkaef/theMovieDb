@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/widgets/movie_list/movie_list_widget.dart';
 
+import '../customProgressBarWidgetScreen.dart';
+
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
 
@@ -27,7 +29,20 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       body: IndexedStack(
         index: _selectedTab,
         children: [
-          Text('News'),
+          Center(
+            child: Container(
+              width: 100,
+              height: 100,
+              child: RadialPercentWidget(
+                child: Text('news'),
+                fillColor: Colors.green.shade300,
+                freeColor: Colors.grey,
+                lineColor: Colors.purple,
+                lineWidth: 7,
+                percent: 24,
+              ),
+            ),
+          ),
           MovieListWidget(),
           Text('serials'),
         ],

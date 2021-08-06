@@ -4,7 +4,7 @@ import 'package:the_movie_db/const/routes_screen.dart';
 import 'package:the_movie_db/widgets/auth/auth_widget.dart';
 import 'package:the_movie_db/widgets/main_screen/main_screen_widget.dart';
 
-import 'widgets/customProgressBarWidget.dart';
+import 'widgets/customProgressBarWidgetScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         RouteScreen.main_screen: (context) => MainScreenWidget(),
         RouteScreen.example: (context) => CustomProgressBarWidget(),
       },
-      initialRoute: RouteScreen.example,
+      initialRoute: RouteScreen.auth,
     );
   }
 }
