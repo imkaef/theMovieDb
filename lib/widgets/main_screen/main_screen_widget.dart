@@ -29,17 +29,22 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       body: IndexedStack(
         index: _selectedTab,
         children: [
-          Center(
-            child: Container(
-              width: 100,
-              height: 100,
-              child: RadialPercentWidget(
-                child: Text('news'),
-                fillColor: Colors.green.shade300,
-                freeColor: Colors.grey,
-                lineColor: Colors.purple,
-                lineWidth: 7,
-                percent: 24,
+          Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.red, Colors.yellow, Colors.green])),
+            child: Center(
+              child: Container(
+                width: 100,
+                height: 100,
+                child: RadialPercentWidget(
+                  child: Text('news'),
+                  fillColor: Colors.green.shade300,
+                  freeColor: Colors.grey,
+                  lineColor: Colors.purple,
+                  lineWidth: 7,
+                  percent: 24,
+                ),
               ),
             ),
           ),

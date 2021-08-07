@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/const/app_images.dart';
+import 'package:the_movie_db/const/routes_screen.dart';
 
 class Movie {
+  final int id;
   final AssetImage imageName;
   final String title;
   final String time;
   final String description;
   Movie({
+    required this.id,
     required this.imageName,
     required this.title,
     required this.time,
@@ -66,102 +69,127 @@ class _MovieListWidgetState extends State<MovieListWidget> {
     //   'Washed-up MMA fighter Cole Young, unaware of his heritage',
     // ),
     Movie(
+      id: 1,
       imageName: AppImages.moviePlaceHolder,
       title: 'Смертельная битва',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 2,
       imageName: AppImages.moviePlaceHolder,
       title: 'Прибытие',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 3,
       imageName: AppImages.moviePlaceHolder,
       title: 'Назад в будущее 1',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 4,
       imageName: AppImages.moviePlaceHolder,
       title: 'Назад в будущее 2',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 5,
       imageName: AppImages.moviePlaceHolder,
       title: 'Назад в будущее 3',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 6,
       imageName: AppImages.moviePlaceHolder,
       title: 'Первому игроку приготовится',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 7,
       imageName: AppImages.moviePlaceHolder,
       title: 'Пиксели',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 8,
       imageName: AppImages.moviePlaceHolder,
       title: 'Человек паук',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 9,
       imageName: AppImages.moviePlaceHolder,
       title: 'Лига справедливости',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 10,
       imageName: AppImages.moviePlaceHolder,
       title: 'Человек из стали',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 11,
       imageName: AppImages.moviePlaceHolder,
       title: 'Мстители',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 12,
       imageName: AppImages.moviePlaceHolder,
       title: 'Форд против феррари',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 13,
       imageName: AppImages.moviePlaceHolder,
       title: 'Джентельмены',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 14,
       imageName: AppImages.moviePlaceHolder,
       title: 'Тихие зори',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 15,
       imageName: AppImages.moviePlaceHolder,
       title: 'В бой идут одни старики',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
     Movie(
+      id: 16,
       imageName: AppImages.moviePlaceHolder,
       title: 'Дюна',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
   ];
+
+  void _onMovieTap(int index) {
+    //final id = _filteredMovies[index].id;
+    final id = _filteredMovies[index];
+    Navigator.of(context).pushNamed(
+      RouteScreen.movieDetails,
+      arguments: id, //сами контролируем какие параметры передаем
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -244,9 +272,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                     child: InkWell(
                       splashColor: Colors.blue.withOpacity(0.3),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      onTap: () {
-                        print('$index');
-                      },
+                      onTap: () => _onMovieTap(index),
                     ),
                   )
                 ],
