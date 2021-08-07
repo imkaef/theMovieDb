@@ -106,35 +106,44 @@ class _ScoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           TextButton(
+            style: TextButton.styleFrom(padding: EdgeInsets.zero),
             onPressed: () {},
             child: Row(
               children: [
-                SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: RadialPercentWidget(
-                    child: Text(
-                      '88%',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: RadialPercentWidget(
+                      child: Text(
+                        '88%',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 13),
+                      ),
+                      percent: 88,
+                      fillColor: AppColors.progressBarBackground,
+                      freeColor: AppColors.freeLine,
+                      lineWidth: 3,
+                      lineColor: AppColors.line,
                     ),
-                    percent: 88,
-                    fillColor: AppColors.progressBarBackground,
-                    freeColor: AppColors.freeLine,
-                    lineWidth: 3,
-                    lineColor: AppColors.line,
                   ),
                 ),
                 Text(
                   '''Пользовательский
 счёт''',
                   maxLines: 2,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black),
                 ),
               ],
             ),
@@ -145,6 +154,7 @@ class _ScoreWidget extends StatelessWidget {
             color: Colors.grey,
           ),
           TextButton(
+            style: TextButton.styleFrom(padding: EdgeInsets.zero),
             onPressed: () {},
             child: Row(
               children: [

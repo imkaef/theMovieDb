@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/widgets/movie_details/movie_details_main_info_widget.dart';
+import 'package:the_movie_db/widgets/movie_details/movie_details_screen_cast_widget.dart';
 import 'package:the_movie_db/widgets/movie_list/movie_list_widget.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
@@ -22,6 +23,7 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
         child: ListView(
           children: [
             MovieDetailsMainInfoWidget(),
+            MovieDetailsMainScreenCastWidget(),
           ],
         ),
       ),
