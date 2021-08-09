@@ -1,6 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
-class AuthModel extends ChangeNotifier {}
+class AuthModel extends ChangeNotifier {
+  //Указать от кого наследуется
+  final loginTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+  String? _errorMessage;
+  String get errorMessage => _errorMessage;
+
+  Future<void> auth(BuildContext context){
+    
+  }
+}
 
 // class AuthProvider extends InheritedWidget {
 //   AuthProvider({Key? key, required this.child}) : super(key: key, child: child);
