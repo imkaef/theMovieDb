@@ -20,8 +20,8 @@ class _AuthWidgetState extends State<AuthWidget> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: ListView(
           children: [
-            _HeaderWidget(),
             _FormWidget(),
+            _HeaderWidget(),
           ],
         ),
       ),
@@ -66,36 +66,13 @@ class _HeaderWidget extends StatelessWidget {
   }
 }
 
-class _FormWidget extends StatefulWidget {
+
+class _FormWidget extends StatelessWidget {
   const _FormWidget({Key? key}) : super(key: key);
-
-  @override
-  __FormWidgetState createState() => __FormWidgetState();
-}
-
-class __FormWidgetState extends State<_FormWidget> {
   final _loginTextController = TextEditingController(text: 'admin');
   final _passwordTextController = TextEditingController(text: 'admin');
-  String? errorText = null;
-  void _auth() {
-    final login = _loginTextController.text;
-    final password = _passwordTextController.text;
-    print(login);
-    print(password);
-    if (login == 'admin' && password == 'admin') {
-      errorText = null;
-      Navigator.of(context).pushReplacementNamed(RouteScreen.mainScreen);
-    } else {
-      errorText = 'Не верный Логин или пароль';
-    }
-    setState(() {});
-  }
-
-  void _resetPassword() {
-    print('password');
-  }
-
-  @override
+  String? errorText;
+    @override
   Widget build(BuildContext context) {
     final color = const Color(0xFF01b4e4);
     final textStyle = const TextStyle(

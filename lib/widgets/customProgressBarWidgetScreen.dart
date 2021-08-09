@@ -92,7 +92,7 @@ class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     percent /= 100;
-    final arcRect = CalculateArcRect(size);
+    final arcRect = calculateArcRect(size);
 
     drawBackgroundCircle(canvas, size);
 
@@ -142,7 +142,7 @@ class MyPainter extends CustomPainter {
     );
   }
 
-  Rect CalculateArcRect(Size size) {
+  Rect calculateArcRect(Size size) {
     final double linePadding = 2;
     final offset = (lineWidth / 2 + linePadding);
     final arcRect = Offset(offset, offset) &

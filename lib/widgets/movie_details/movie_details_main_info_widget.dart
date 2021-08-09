@@ -38,7 +38,7 @@ class _TopPosterWidget extends StatelessWidget {
       fit: StackFit.loose,
       children: [
         ShaderMask(
-          //добавление краски на топ изображение фильма
+          //добавление краски на топ изображение фильма 
           shaderCallback: (rect) {
             return LinearGradient(
               colors: [
