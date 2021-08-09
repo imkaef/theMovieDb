@@ -12,6 +12,7 @@ class MovieDetailsMainInfoWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        // _TopPosterWidget(),
         _TopPosterWidget(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
@@ -36,7 +37,26 @@ class _TopPosterWidget extends StatelessWidget {
     return Stack(
       fit: StackFit.loose,
       children: [
-        Image(image: AppImages.topHeader),
+        ShaderMask(
+          //добавление краски на топ изображение фильма
+          shaderCallback: (rect) {
+            return LinearGradient(
+              colors: [
+                AppColors.blackBackgroundMovieDetail,
+                Colors.transparent,
+              ],
+              stops: [0.5, 0.8],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ).createShader(
+              Rect.fromLTRB(rect.width, rect.height, 0, 0),
+            );
+          },
+          blendMode: BlendMode.dstIn,
+          child: Image(
+            image: (AppImages.topHeader),
+          ),
+        ),
         Positioned(
           top: 20,
           left: 15,
@@ -49,21 +69,30 @@ class _TopPosterWidget extends StatelessWidget {
             ),
           ),
         ),
-        // Expanded(
-        //   child: Container(
-        //     decoration: BoxDecoration(
-        //       gradient: LinearGradient(
-        //         colors: [
-        //           Colors.white,
-        //           Colors.transparent,
-        //         ],
-        //         begin: Alignment.centerLeft,
-        //         end: Alignment.bottomRight,
-        //       ),
-        //     ),
-        //   ),
-        // )
       ],
+    );
+  }
+}
+
+class LinearGradientWidget extends StatelessWidget {
+  const LinearGradientWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            AppColors.blackBackgroundMovieDetail,
+            Colors.transparent,
+          ],
+          stops: [0.2, 0.7],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+      ),
     );
   }
 }
