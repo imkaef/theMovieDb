@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_button_style.dart';
-import 'package:the_movie_db/const/routes_screen.dart';
 import 'package:the_movie_db/widgets/auth/auth_model.dart';
 
 class AuthWidget extends StatefulWidget {
@@ -71,7 +70,8 @@ class _FormWidget extends StatelessWidget {
   const _FormWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final color = const Color(0xFF01b4e4);
+    final model = AuthProvider.read(context)?.model;
+
     final textStyle = const TextStyle(
       fontSize: 16,
       color: Color(0xff212529),
@@ -86,7 +86,7 @@ class _FormWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       const _ErrorMessageWidget(),
+        const _ErrorMessageWidget(),
         Text(
           'Username',
           style: textStyle,
@@ -96,7 +96,7 @@ class _FormWidget extends StatelessWidget {
         ),
         TextField(
           decoration: textFielfDecorator,
-          controller: _loginTextController,
+          controller: model?.loginTextController,
         ),
         SizedBox(
           height: 5,
@@ -109,7 +109,7 @@ class _FormWidget extends StatelessWidget {
           height: 5,
         ),
         TextField(
-          controller: _passwordTextController,
+          controller: model?.passwordTextController,
           obscureText: true,
           decoration: textFielfDecorator,
         ),
@@ -118,20 +118,7 @@ class _FormWidget extends StatelessWidget {
         ),
         Row(
           children: [
-            ElevatedButton(
-              onPressed: _auth,
-              child: Text(
-                'login',
-              ),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(color),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                  textStyle: MaterialStateProperty.all(
-                    TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                  ),
-                  padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 8))),
-            ),
+            const _AuthButtonWidget(),
             SizedBox(
               width: 30,
             ),
@@ -143,6 +130,35 @@ class _FormWidget extends StatelessWidget {
           ],
         )
       ],
+    );
+  }
+}
+
+class _AuthButtonWidget extends StatelessWidget {
+  const _AuthButtonWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final color = const Color(0xFF01b4e4);
+    final model = AuthProvider.read(context)?.model;
+    final onPressed = model?.canStartAuth == true
+          ? () => model?.auth(context)
+          : null;
+    return ElevatedButton(
+      onPressed: () => onPressed,
+      child: Text(
+        'login',
+      ),
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(color),
+          foregroundColor: MaterialStateProperty.all(Colors.white),
+          textStyle: MaterialStateProperty.all(
+            TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+          ),
+          padding: MaterialStateProperty.all(
+              EdgeInsets.symmetric(horizontal: 15, vertical: 8))),
     );
   }
 }

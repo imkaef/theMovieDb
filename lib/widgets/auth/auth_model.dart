@@ -5,11 +5,13 @@ class AuthModel extends ChangeNotifier {
   final loginTextController = TextEditingController();
   final passwordTextController = TextEditingController();
   String? _errorMessage;
-  String get errorMessage => _errorMessage;
+  String? get errorMessage => _errorMessage;
 
-  Future<void> auth(BuildContext context){
-    
-  }
+  bool _isAuthProgress = false;
+
+  bool get canStartAuth => !_isAuthProgress;
+
+  Future<void> auth(BuildContext context) async {}
 }
 
 // class AuthProvider extends InheritedWidget {
