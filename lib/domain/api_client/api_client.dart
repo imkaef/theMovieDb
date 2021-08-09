@@ -12,8 +12,20 @@ class ApiClient {
   // надо сделать 3 запроса мэйк токен
   // валидате юзер
   // make session
+
+//функция для создания юрл
+  Uri makeUri(String path, [Map<String, dynamic>? parametrs]) {
+    final uri = Uri.parse('$_host$path');
+    if (parametrs != null) {
+      return uri.replace(queryParameters: parametrs);
+    } else {
+      return uri;
+    }
+  }
+
   Future<String> makeToken() async {
-    final url = Uri.parse('$_host/authentication/token/new?api_key=$_apiKey');
+    final url = makeUri('/authentication/token/new?api_key=', {'api_key': _apiKey});
+    // final url = Uri.parse('$_host/authentication/token/new?api_key=$_apiKey');
     final request = await _client.getUrl(url);
     final responce = await request.close();
     final json = await responce
@@ -30,8 +42,9 @@ class ApiClient {
     required String password,
     required String requestToken,
   }) async {
-    final url = Uri.parse(
-        '$_host/authentication/token/validate_with_login?api_key=$_apiKey');
+    final url = makeUri('/authentication/token/validate_with_login?api_key=', {'api_key': _apiKey});
+    // final url = Uri.parse(
+    //     '$_host/authentication/token/validate_with_login?api_key=$_apiKey');
     final parameters = <String, dynamic>{
       'username': username,
       'password': password,
@@ -55,8 +68,8 @@ class ApiClient {
   Future<String> makeSession({
     required String requestToken,
   }) async {
-    final url = Uri.parse(
-        '$_host/authentication/session/new?api_key=$_apiKey');
+      final url = makeUri('/authentication/session/new?api_key=', {'api_key': _apiKey});
+   // final url = Uri.parse('$_host/authentication/session/new?api_key=$_apiKey');
     final parameters = <String, dynamic>{
       'request_token': requestToken,
     };
