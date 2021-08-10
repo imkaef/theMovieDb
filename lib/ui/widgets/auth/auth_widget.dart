@@ -166,10 +166,7 @@ class _AuthButtonWidget extends StatelessWidget {
     final model = AuthProvider.read(context)?.model;
     if (model?.canStartAuth == true) {
       model?.auth(context);
-      print('answ Yes');
-    } else {
-      print('answ No');
-    }
+    } 
   }
 
   @override

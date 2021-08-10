@@ -15,7 +15,6 @@ class ApiClient {
 
   Future<String> auth(
       {required String username, required String password}) async {
-    print('auth start');
     final token =
         await _makeToken(); // так как метод асинхронный нужно указать await
     final validUser = await _validateUser(
@@ -28,10 +27,8 @@ class ApiClient {
   Uri _makeUri(String path, [Map<String, dynamic>? parametrs]) {
     final uri = Uri.parse('$_host$path');
     if (parametrs != null) {
-      print('withparam = ${uri.replace(queryParameters: parametrs)}');
       return uri.replace(queryParameters: parametrs);
     } else {
-      print('withOutparam = $uri');
       return uri;
     }
   }
@@ -40,13 +37,12 @@ class ApiClient {
 //нужен общий метод который юудет их вызывать
   Future<String> _makeToken() async {
     final url =
-     _makeUri('/authentication/token/new?api_key=', {'api_key': _apiKey});
-  //  final url = Uri.parse('$_host/authentication/token/new?api_key=$_apiKey');
+        _makeUri('/authentication/token/new?api_key=', {'api_key': _apiKey});
+    //  final url = Uri.parse('$_host/authentication/token/new?api_key=$_apiKey');
     final request = await _client.getUrl(url);
     final responce = await request.close();
     final json = (await responce.jsonDecode()) as Map<String, dynamic>;
     final token = json['request_token'] as String;
-    print('Maketoken done $token');
     return token;
   }
 
@@ -72,7 +68,6 @@ class ApiClient {
     final responce = await request.close();
     final json = (await responce.jsonDecode()) as Map<String, dynamic>;
     final token = json['request_token'] as String;
-    print('validate user done token = $token');
     return token;
   }
 
@@ -98,7 +93,6 @@ class ApiClient {
     //     .then((value) => value.join())
     //     .then((v) => jsonDecode(v) as Map<String, dynamic>);
     final sessionId = json['session_id'] as String;
-    print('session id done = $sessionId');
     return sessionId;
   }
 }
