@@ -16,6 +16,9 @@ abstract class MainNavigationRouteNames {
 
 // утащим роуты для удобного использования в отдельный файл
 class MainNavigation {
+  String initialRoute(bool isAuth) => isAuth
+      ? MainNavigationRouteNames.mainScreen
+      : MainNavigationRouteNames.auth;
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRouteNames.auth: (context) => AuthProvider(
           child: const AuthWidget(),
