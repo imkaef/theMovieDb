@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
             unselectedItemColor: Colors.grey),
       ),
       routes: mainNavigation.routes,
-      initialRoute: mainNavigation.initialRoute(false),
+      initialRoute: mainNavigation.initialRoute(true),
+      onGenerateRoute: mainNavigation.onGenerateRoute,
     );
   }
 }

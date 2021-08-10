@@ -184,7 +184,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
 
   void _onMovieTap(int index) {
     //final id = _filteredMovies[index].id;
-    final id = _filteredMovies[index];
+    final id = _filteredMovies[index].id;
     Navigator.of(context).pushNamed(
       MainNavigationRouteNames.movieDetails,
       arguments: id, //сами контролируем какие параметры передаем
