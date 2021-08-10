@@ -1,4 +1,7 @@
+import 'dart:js';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:the_movie_db/const/app_images.dart';
 import 'package:the_movie_db/ui/widgets/auth/auth_model.dart';
 import 'package:the_movie_db/ui/widgets/auth/auth_widget.dart';
@@ -30,21 +33,29 @@ class MainNavigation {
 // final id = ModalRoute.of(context)!.settings.arguments as int;
       // так плохо есди я дам другой или налл прога крашиться по этому делаем иначе
       //  good case
-      final arguments = ModalRoute.of(context)?.settings.arguments as Movie;
-      if (arguments.id is int) {
+      final arguments = ModalRoute.of(context)?.settings.arguments as int;
+      if (arguments is int) {
         return MovieDetailsWidget(
           movie: arguments,
         );
       } else {
         return MovieDetailsWidget(
-          movie: Movie(
-              id: 18,
-              imageName: AppImages.moviePlaceHolder,
-              title: 'Oshibka',
-              time: 'time',
-              description: 'description'),
+          movie: 0,
         );
       }
     },
   };
+
+  Route<Object> onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case MainNavigationRouteNames.movieDetails:
+        final arguments = settings.arguments;
+        final movieId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+            builder: (context) => MovieDetailsWidget(movie: movieId));
+      default:
+        const widget = Text('Navigation error');
+        return MaterialPageRoute(builder: (context) => widget);
+    }
+  }
 }

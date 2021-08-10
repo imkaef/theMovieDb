@@ -6,7 +6,7 @@ import 'package:the_movie_db/ui/widgets/movie_list/movie_list_widget.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
   const MovieDetailsWidget({Key? key, required this.movie}) : super(key: key);
-  final Movie movie;
+  final int movie;
   @override
   _MovieDetailsWidgetState createState() => _MovieDetailsWidgetState();
 }
@@ -16,7 +16,7 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.movie.title),
+        title: Text(widget.movie.toString()),
       ),
       body: ColoredBox(
         color: AppColors.blackBackgroundMovieDetail,
