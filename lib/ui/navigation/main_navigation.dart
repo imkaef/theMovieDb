@@ -2,18 +2,16 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:the_movie_db/const/app_images.dart';
 import 'package:the_movie_db/ui/widgets/auth/auth_model.dart';
 import 'package:the_movie_db/ui/widgets/auth/auth_widget.dart';
 import 'package:the_movie_db/ui/widgets/customProgressBarWidgetScreen.dart';
 import 'package:the_movie_db/ui/widgets/main_screen/main_screen_widget.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_widget.dart';
-import 'package:the_movie_db/ui/widgets/movie_list/movie_list_widget.dart';
 
 abstract class MainNavigationRouteNames {
   static const auth = 'auth';
-  static const mainScreen = 'main_screen';
-  static const movieDetails = 'main_screen/movie_details';
+  static const mainScreen = '/';
+  static const movieDetails = '/movie_details';
   static const example = 'example_screen';
 }
 

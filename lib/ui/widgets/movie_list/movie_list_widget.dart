@@ -212,9 +212,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                         border: Border.all(
                           color: Colors.black.withOpacity(0.2),
                         ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
+                        borderRadius: _MBR.custom,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.2),
@@ -271,7 +269,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                     color: Colors.transparent,
                     child: InkWell(
                       splashColor: Colors.blue.withOpacity(0.3),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderRadius: _MBR.custom,
                       onTap: () => _onMovieTap(index),
                     ),
                   )
@@ -288,10 +286,18 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                 labelText: 'Search',
                 filled: true,
                 fillColor: Colors.white.withAlpha(220),
-                border: OutlineInputBorder()),
+                border: OutlineInputBorder(borderRadius: _MBR.custom)),
           ),
         )
       ],
     );
   }
+}
+
+// класс для бордер радиусов у виджетов
+abstract class _MBR {
+  static const sml = 10.0;
+  static const mdm = 15.0;
+  static const lrg = 20.0;
+  static const custom = BorderRadius.all(Radius.circular(mdm));
 }

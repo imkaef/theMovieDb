@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/ui/navigation/main_navigation.dart';
+import 'package:the_movie_db/ui/widgets/app/my_app_model.dart';
 
 class MyApp extends StatelessWidget {
   static final mainNavigation = MainNavigation();
+  final MyAppModel model;
   // This widget is the root of your application.
+
+  const MyApp({Key? key, required this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
             unselectedItemColor: Colors.grey),
       ),
       routes: mainNavigation.routes,
-      initialRoute: mainNavigation.initialRoute(true),
+      initialRoute: mainNavigation.initialRoute(model.isAuth),
       onGenerateRoute: mainNavigation.onGenerateRoute,
     );
   }
