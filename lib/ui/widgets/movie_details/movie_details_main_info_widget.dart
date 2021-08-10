@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/const/app_images.dart';
-import 'package:the_movie_db/widgets/customProgressBarWidgetScreen.dart';
+import 'package:the_movie_db/ui/widgets/customProgressBarWidgetScreen.dart';
+
 
 class MovieDetailsMainInfoWidget extends StatelessWidget {
   const MovieDetailsMainInfoWidget({Key? key}) : super(key: key);

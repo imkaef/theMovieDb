@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:the_movie_db/const/routes_screen.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
+import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 
 class AuthModel extends ChangeNotifier {
   //Указать от кого наследуется
@@ -55,7 +55,7 @@ class AuthModel extends ChangeNotifier {
     }
     await _sessionDataProvider.setSessionId(sessionId);
 
-    Navigator.of(context).pushNamed(RouteScreen.mainScreen);
+    Navigator.of(context).pushNamed(MainNavigationRouteNames.mainScreen);
     //notifyListeners();
     //_sessionId =_apiKlient.auth(username: login, password: password);
   }

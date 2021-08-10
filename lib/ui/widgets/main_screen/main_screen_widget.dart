@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie_db/widgets/movie_list/movie_list_widget.dart';
-
+import 'package:the_movie_db/ui/widgets/movie_list/movie_list_widget.dart';
 import '../customProgressBarWidgetScreen.dart';
 
 class MainScreenWidget extends StatefulWidget {

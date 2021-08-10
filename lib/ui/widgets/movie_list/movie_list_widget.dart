@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/const/app_images.dart';
-import 'package:the_movie_db/const/routes_screen.dart';
+import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 
 class Movie {
   final int id;
@@ -186,7 +186,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
     //final id = _filteredMovies[index].id;
     final id = _filteredMovies[index];
     Navigator.of(context).pushNamed(
-      RouteScreen.movieDetails,
+      MainNavigationRouteNames.movieDetails,
       arguments: id, //сами контролируем какие параметры передаем
     );
   }
