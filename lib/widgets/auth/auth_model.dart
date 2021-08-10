@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:the_movie_db/const/routes_screen.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
 
@@ -51,7 +53,9 @@ class AuthModel extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    _sessionDataProvider.sessionId = sessionId;
+    await _sessionDataProvider.setSessionId(sessionId);
+
+    Navigator.of(context).pushNamed(RouteScreen.mainScreen);
     //notifyListeners();
     //_sessionId =_apiKlient.auth(username: login, password: password);
   }
