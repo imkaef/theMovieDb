@@ -139,19 +139,39 @@ class _AuthButtonWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  void pressff(BuildContext context) {
+    final model = AuthProvider.read(context)?.model;
+    if (model?.canStartAuth == true) {
+      model?.auth(context);
+      print('answ Yes');
+    } else {
+      print('answ No');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final color = const Color(0xFF01b4e4);
-    final model = AuthProvider.read(context)?.model;
-    final onPressed = model?.canStartAuth == true
-          ? () => model?.auth(context)
-          : null;
+    final model = AuthProvider.watch(context)?.model;
+    final child = model?.isAuthinProgress == true
+        ? const SizedBox(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 11),
+              child: CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 2,
+              ),
+            ),
+            height: 19,
+            width: 41,
+          )
+        : const Text('Login');
+
     return ElevatedButton(
-      onPressed: () => onPressed,
-      child: Text(
-        'login',
-      ),
+      onPressed: () => pressff(context),
+      child: child,
       style: ButtonStyle(
+          minimumSize: MaterialStateProperty.all(Size.zero),
           backgroundColor: MaterialStateProperty.all(color),
           foregroundColor: MaterialStateProperty.all(Colors.white),
           textStyle: MaterialStateProperty.all(
@@ -173,7 +193,7 @@ class _ErrorMessageWidget extends StatelessWidget {
     final errorMessage = AuthProvider.watch(context)?.model.errorMessage;
     if (errorMessage == null) return const SizedBox.shrink();
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child:
           Text(errorMessage, style: TextStyle(color: Colors.red, fontSize: 17)),
     );
