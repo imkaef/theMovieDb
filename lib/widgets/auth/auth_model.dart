@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
+import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
 
 class AuthModel extends ChangeNotifier {
   //Указать от кого наследуется
@@ -16,6 +17,9 @@ class AuthModel extends ChangeNotifier {
   // String? _sessionId;
 // добавляем метод из apiclient
   final _apiKlient = ApiClient();
+
+  final _sessionDataProvider = SessionDataProvider();
+
   Future<void> auth(BuildContext context) async {
     print('auth start');
     final login = loginTextController.text;
@@ -38,10 +42,17 @@ class AuthModel extends ChangeNotifier {
       _errorMessage = 'Неправильный логин или пароль!';
     }
     _isAuthProgress = false;
-    // if (_errorMessage != null || sessionId == null) {
-    //   notifyListeners();
-    // }
-    notifyListeners();
+    if (_errorMessage != null) {
+      notifyListeners();
+      return;
+    }
+    if (sessionId == null) {
+      _errorMessage = 'Не получен id сессии';
+      notifyListeners();
+      return;
+    }
+    _sessionDataProvider.sessionId = sessionId;
+    //notifyListeners();
     //_sessionId =_apiKlient.auth(username: login, password: password);
   }
 }
