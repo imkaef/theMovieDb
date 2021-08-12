@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
@@ -43,19 +42,19 @@ class AuthModel extends ChangeNotifier {
     } on ApiClientException catch (e) {
       switch (e.type) {
         case ApiClientExceptionType.Network:
-          _errorMessage = 'Network error';
+          _errorMessage = 'Ошибка сети. Проверьте интеренет соединение';
           break;
         case ApiClientExceptionType.Auth:
-          _errorMessage = 'Auth error';
-       
+          _errorMessage = 'Неверный логин или пароль';
+
           break;
         case ApiClientExceptionType.Other:
-          _errorMessage = 'other error';
-   
+          _errorMessage = 'Ошибка сервера. Повторите запрос';
+
           break;
       }
     }
-  
+
     _isAuthProgress = false;
     if (_errorMessage != null) {
       notifyListeners();
