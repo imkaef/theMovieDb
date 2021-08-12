@@ -50,6 +50,33 @@ class ApiClient {
     }
   }
 
+  Future<T> _post<T>(
+    String path,
+    Map<String, dynamic> bodyParametrs,
+    T Function(dynamic json) parser, [
+    Map<String, dynamic>? urlParametrs,
+  ]) async {
+    try {
+      final url = _makeUri(path, urlParametrs);
+      final request = await _client.postUrl(
+        url,
+      );
+      request.headers.contentType = ContentType.json;
+      request.write(jsonEncode(bodyParametrs));
+      final responce = await request.close();
+      final dynamic json = (await responce.jsonDecode());
+      _validateResponse(responce, json);
+      final result = parser(json);
+      return result;
+    } on SocketException {
+      throw ApiClientException(ApiClientExceptionType.Network);
+    } on ApiClientException {
+      rethrow;
+    } catch (_) {
+      throw ApiClientException(ApiClientExceptionType.Other);
+    }
+  }
+
   Future<String> auth(
       {required String username, required String password}) async {
     final token =
@@ -73,30 +100,17 @@ class ApiClient {
 //все эти методы приватные и используются всегда один за другим по этому
 //нужен общий метод который юудет их вызывать
   Future<String> _makeToken() async {
-    final url =
-        _makeUri('/authentication/token/new?api_key=', {'api_key': _apiKey});
-    //  final url = Uri.parse('$_host/authentication/token/new?api_key=$_apiKey');
-
-// начало обраюботок ошибок
-    try {
-      // если гдето тут будет ошибка то мы попадаем сюда
-      final request = await _client.getUrl(url);
-      final responce = await request.close();
-      final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-      _validateResponse(responce, json);
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
       final token = json['request_token'] as String;
       return token;
-      // Вот сюда
-    } on SocketException {
-      // Если ошибка с сетью мы генерируем ощибку и выходим
-      throw ApiClientException(ApiClientExceptionType.Network);
-    } on ApiClientException {
-      // Ессли получаем нашу ощибку описанную через if то мы её просто пробрасываем наверх
-      rethrow;
-    } catch (_) {
-      // и если случилось что не наша и не сокет то это другие ошибки
-      throw ApiClientException(ApiClientExceptionType.Other);
-    }
+    };
+    final result = _get(
+      '/authentication/token/new?api_key=',
+      parser,
+      <String, dynamic>{'api_key': _apiKey},
+    );
+    return result;
   }
 
   Future<String> _validateUser({
