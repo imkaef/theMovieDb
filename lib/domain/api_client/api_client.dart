@@ -56,9 +56,8 @@ class ApiClient {
       // если гдето тут будет ошибка то мы попадаем сюда
       final request = await _client.getUrl(url);
       final responce = await request.close();
-      if (responce.statusCode == 401)
-        throw ApiClientException(ApiClientExceptionType.Other);
       final json = (await responce.jsonDecode()) as Map<String, dynamic>;
+       _validateResponse(responce, json);
       final token = json['request_token'] as String;
       return token;
       // Вот сюда
@@ -73,6 +72,8 @@ class ApiClient {
       throw ApiClientException(ApiClientExceptionType.Other);
     }
   }
+
+
 
   Future<String> _validateUser({
     required String username,
@@ -94,15 +95,7 @@ class ApiClient {
       request.write(jsonEncode(parameters));
       final responce = await request.close();
       final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-      if (responce.statusCode == 401) {
-        final dynamic status = json['status_code'];
-        final code = status is int ? status : 0;
-        if (code == 30) {
-          throw ApiClientException(ApiClientExceptionType.Auth);
-        } else {
-          throw ApiClientException(ApiClientExceptionType.Other);
-        }
-      }
+     _validateResponse(responce, json);
       final token = json['request_token'] as String;
       return token;
     } on SocketException {
@@ -120,7 +113,6 @@ class ApiClient {
     try {
       final url = _makeUri(
           '/authentication/session/new?api_key=', {'api_key': _apiKey});
-      // final url = Uri.parse('$_host/authentication/session/new?api_key=$_apiKey');
       final parameters = <String, dynamic>{
         'request_token': requestToken,
       };
@@ -131,20 +123,7 @@ class ApiClient {
       request.write(jsonEncode(parameters));
       final responce = await request.close();
       final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-      // final json = await responce заменяем это на то что написанно вверху, этот метод описан внизу
-      //     .transform(utf8.decoder)
-      //     .toList()
-      //     .then((value) => value.join())
-      //     .then((v) => jsonDecode(v) as Map<String, dynamic>);
-      if (responce.statusCode == 401) {
-        final dynamic status = json['status_code'];
-        final code = status is int ? status : 0;
-        if (code == 30) {
-          throw ApiClientException(ApiClientExceptionType.Auth);
-        } else {
-          throw ApiClientException(ApiClientExceptionType.Other);
-        }
-      }
+     _validateResponse(responce, json);
       final sessionId = json['session_id'] as String;
       return sessionId;
     } on SocketException {
@@ -154,6 +133,18 @@ class ApiClient {
     } catch (_) {
       throw ApiClientException(ApiClientExceptionType.Other);
     }
+  }
+
+    void _validateResponse(HttpClientResponse responce, Map<String, dynamic> json) {
+      if (responce.statusCode == 401) {
+     final dynamic status = json['status_code'];
+     final code = status is int ? status : 0;
+     if (code == 30) {
+       throw ApiClientException(ApiClientExceptionType.Auth);
+     } else {
+       throw ApiClientException(ApiClientExceptionType.Other);
+     }
+          }
   }
 }
 
