@@ -95,7 +95,7 @@ class ApiClient {
       final responce = await request.close();
       final json = (await responce.jsonDecode()) as Map<String, dynamic>;
       if (responce.statusCode == 401) {
-        final dynamic status = json['statusCode'];
+        final dynamic status = json['status_code'];
         final code = status is int ? status : 0;
         if (code == 30) {
           throw ApiClientException(ApiClientExceptionType.Auth);
@@ -137,7 +137,7 @@ class ApiClient {
       //     .then((value) => value.join())
       //     .then((v) => jsonDecode(v) as Map<String, dynamic>);
       if (responce.statusCode == 401) {
-        final dynamic status = json['statusCode'];
+        final dynamic status = json['status_code'];
         final code = status is int ? status : 0;
         if (code == 30) {
           throw ApiClientException(ApiClientExceptionType.Auth);
