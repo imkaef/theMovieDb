@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
@@ -39,9 +40,22 @@ class AuthModel extends ChangeNotifier {
     try {
       sessionId = await _apiClient.auth(username: login, password: password);
       print('$sessionId');
-    } catch (e) {
-      _errorMessage = 'Неправильный логин или пароль!';
+    } on ApiClientException catch (e) {
+      switch (e.type) {
+        case ApiClientExceptionType.Network:
+          _errorMessage = 'Network error';
+          break;
+        case ApiClientExceptionType.Auth:
+          _errorMessage = 'Auth error';
+       
+          break;
+        case ApiClientExceptionType.Other:
+          _errorMessage = 'other error';
+   
+          break;
+      }
     }
+  
     _isAuthProgress = false;
     if (_errorMessage != null) {
       notifyListeners();

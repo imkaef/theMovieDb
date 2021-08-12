@@ -1,6 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 
+// перечисление ошибок
+enum ApiClientExceptionType { Network, Auth, Other }
+
+//Создаем класс ошибок для этого имплементируем класс Exception
+// Всего определили 3 типа ошибок Сервер, сеть на устройстве, ошибки с сервера не верный логин или пароль
+class ApiClientException implements Exception {
+  final ApiClientExceptionType type;
+
+  ApiClientException(this.type);
+}
+
 class ApiClient {
   final _client = HttpClient();
   static const _host =
@@ -39,11 +50,28 @@ class ApiClient {
     final url =
         _makeUri('/authentication/token/new?api_key=', {'api_key': _apiKey});
     //  final url = Uri.parse('$_host/authentication/token/new?api_key=$_apiKey');
-    final request = await _client.getUrl(url);
-    final responce = await request.close();
-    final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-    final token = json['request_token'] as String;
-    return token;
+
+// начало обраюботок ошибок
+    try {
+      // если гдето тут будет ошибка то мы попадаем сюда
+      final request = await _client.getUrl(url);
+      final responce = await request.close();
+      if (responce.statusCode == 401)
+        throw ApiClientException(ApiClientExceptionType.Other);
+      final json = (await responce.jsonDecode()) as Map<String, dynamic>;
+      final token = json['request_token'] as String;
+      return token;
+      // Вот сюда
+    } on SocketException {
+      // Если ошибка с сетью мы генерируем ощибку и выходим
+      throw ApiClientException(ApiClientExceptionType.Network);
+    } on ApiClientException {
+      // Ессли получаем нашу ощибку описанную через if то мы её просто пробрасываем наверх
+      rethrow;
+    } catch (_) {
+      // и если случилось что не наша и не сокет то это другие ошибки
+      throw ApiClientException(ApiClientExceptionType.Other);
+    }
   }
 
   Future<String> _validateUser({
@@ -51,49 +79,81 @@ class ApiClient {
     required String password,
     required String requestToken,
   }) async {
-    final url = _makeUri('/authentication/token/validate_with_login?api_key=',
-        {'api_key': _apiKey});
-    // final url = Uri.parse(
-    //     '$_host/authentication/token/validate_with_login?api_key=$_apiKey');
-    final parameters = <String, dynamic>{
-      'username': username,
-      'password': password,
-      'request_token': requestToken,
-    };
-    final request = await _client.postUrl(
-      url,
-    );
-    request.headers.contentType = ContentType.json;
-    request.write(jsonEncode(parameters));
-    final responce = await request.close();
-    final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-    final token = json['request_token'] as String;
-    return token;
+    try {
+      final url = _makeUri('/authentication/token/validate_with_login?api_key=',
+          {'api_key': _apiKey});
+      final parameters = <String, dynamic>{
+        'username': username,
+        'password': password,
+        'request_token': requestToken,
+      };
+      final request = await _client.postUrl(
+        url,
+      );
+      request.headers.contentType = ContentType.json;
+      request.write(jsonEncode(parameters));
+      final responce = await request.close();
+      final json = (await responce.jsonDecode()) as Map<String, dynamic>;
+      if (responce.statusCode == 401) {
+        final dynamic status = json['statusCode'];
+        final code = status is int ? status : 0;
+        if (code == 30) {
+          throw ApiClientException(ApiClientExceptionType.Auth);
+        } else {
+          throw ApiClientException(ApiClientExceptionType.Other);
+        }
+      }
+      final token = json['request_token'] as String;
+      return token;
+    } on SocketException {
+      throw ApiClientException(ApiClientExceptionType.Network);
+    } on ApiClientException {
+      rethrow;
+    } catch (_) {
+      throw ApiClientException(ApiClientExceptionType.Other);
+    }
   }
 
   Future<String> _makeSession({
     required String requestToken,
   }) async {
-    final url =
-        _makeUri('/authentication/session/new?api_key=', {'api_key': _apiKey});
-    // final url = Uri.parse('$_host/authentication/session/new?api_key=$_apiKey');
-    final parameters = <String, dynamic>{
-      'request_token': requestToken,
-    };
-    final request = await _client.postUrl(
-      url,
-    );
-    request.headers.contentType = ContentType.json;
-    request.write(jsonEncode(parameters));
-    final responce = await request.close();
-    final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-    // final json = await responce заменяем это на то что написанно вверху, этот метод описан внизу
-    //     .transform(utf8.decoder)
-    //     .toList()
-    //     .then((value) => value.join())
-    //     .then((v) => jsonDecode(v) as Map<String, dynamic>);
-    final sessionId = json['session_id'] as String;
-    return sessionId;
+    try {
+      final url = _makeUri(
+          '/authentication/session/new?api_key=', {'api_key': _apiKey});
+      // final url = Uri.parse('$_host/authentication/session/new?api_key=$_apiKey');
+      final parameters = <String, dynamic>{
+        'request_token': requestToken,
+      };
+      final request = await _client.postUrl(
+        url,
+      );
+      request.headers.contentType = ContentType.json;
+      request.write(jsonEncode(parameters));
+      final responce = await request.close();
+      final json = (await responce.jsonDecode()) as Map<String, dynamic>;
+      // final json = await responce заменяем это на то что написанно вверху, этот метод описан внизу
+      //     .transform(utf8.decoder)
+      //     .toList()
+      //     .then((value) => value.join())
+      //     .then((v) => jsonDecode(v) as Map<String, dynamic>);
+      if (responce.statusCode == 401) {
+        final dynamic status = json['statusCode'];
+        final code = status is int ? status : 0;
+        if (code == 30) {
+          throw ApiClientException(ApiClientExceptionType.Auth);
+        } else {
+          throw ApiClientException(ApiClientExceptionType.Other);
+        }
+      }
+      final sessionId = json['session_id'] as String;
+      return sessionId;
+    } on SocketException {
+      throw ApiClientException(ApiClientExceptionType.Network);
+    } on ApiClientException {
+      rethrow;
+    } catch (_) {
+      throw ApiClientException(ApiClientExceptionType.Other);
+    }
   }
 }
 

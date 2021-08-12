@@ -290,8 +290,10 @@ class _MovieListWidgetState extends State<MovieListWidget> {
 
 // класс для бордер радиусов у виджетов
 abstract class _MBR {
+  // ignore: unused_field
   static const sml = 10.0;
   static const mdm = 15.0;
+  // ignore: unused_field
   static const lrg = 20.0;
   static const custom = BorderRadius.all(Radius.circular(mdm));
 }
