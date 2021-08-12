@@ -24,6 +24,32 @@ class ApiClient {
   // валидате юзер
   // make session
 
+  Future<T> _get<T>(
+    String path,
+    T Function(dynamic json) parser, [
+    Map<String, dynamic>? parametrs,
+  ]) async {
+    final url = _makeUri(path, parametrs);
+    try {
+      final request = await _client.getUrl(url);
+      final responce = await request.close();
+      final dynamic json = (await responce.jsonDecode());
+      _validateResponse(responce, json);
+      final result = parser(json);
+      return result;
+      // Вот сюда
+    } on SocketException {
+      // Если ошибка с сетью мы генерируем ощибку и выходим
+      throw ApiClientException(ApiClientExceptionType.Network);
+    } on ApiClientException {
+      // Ессли получаем нашу ощибку описанную через if то мы её просто пробрасываем наверх
+      rethrow;
+    } catch (_) {
+      // и если случилось что не наша и не сокет то это другие ошибки
+      throw ApiClientException(ApiClientExceptionType.Other);
+    }
+  }
+
   Future<String> auth(
       {required String username, required String password}) async {
     final token =
@@ -57,7 +83,7 @@ class ApiClient {
       final request = await _client.getUrl(url);
       final responce = await request.close();
       final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-       _validateResponse(responce, json);
+      _validateResponse(responce, json);
       final token = json['request_token'] as String;
       return token;
       // Вот сюда
@@ -72,8 +98,6 @@ class ApiClient {
       throw ApiClientException(ApiClientExceptionType.Other);
     }
   }
-
-
 
   Future<String> _validateUser({
     required String username,
@@ -95,7 +119,7 @@ class ApiClient {
       request.write(jsonEncode(parameters));
       final responce = await request.close();
       final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-     _validateResponse(responce, json);
+      _validateResponse(responce, json);
       final token = json['request_token'] as String;
       return token;
     } on SocketException {
@@ -123,7 +147,7 @@ class ApiClient {
       request.write(jsonEncode(parameters));
       final responce = await request.close();
       final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-     _validateResponse(responce, json);
+      _validateResponse(responce, json);
       final sessionId = json['session_id'] as String;
       return sessionId;
     } on SocketException {
@@ -135,16 +159,16 @@ class ApiClient {
     }
   }
 
-    void _validateResponse(HttpClientResponse responce, Map<String, dynamic> json) {
-      if (responce.statusCode == 401) {
-     final dynamic status = json['status_code'];
-     final code = status is int ? status : 0;
-     if (code == 30) {
-       throw ApiClientException(ApiClientExceptionType.Auth);
-     } else {
-       throw ApiClientException(ApiClientExceptionType.Other);
-     }
-          }
+  void _validateResponse(HttpClientResponse responce, dynamic json) {
+    if (responce.statusCode == 401) {
+      final dynamic status = json['status_code'];
+      final code = status is int ? status : 0;
+      if (code == 30) {
+        throw ApiClientException(ApiClientExceptionType.Auth);
+      } else {
+        throw ApiClientException(ApiClientExceptionType.Other);
+      }
+    }
   }
 }
 
