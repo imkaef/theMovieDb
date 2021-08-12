@@ -76,28 +76,28 @@ class AuthModel extends ChangeNotifier {
 //   }
 // } из этого делаем это
 
-class AuthProvider extends InheritedNotifier {
-  //не забыть поменять от кого наследуется инхерит
-  AuthProvider({Key? key, required this.model, required this.child})
-      : super(key: key, notifier: model, child: child);
+// class AuthProvider extends InheritedNotifier {
+//   //не забыть поменять от кого наследуется инхерит
+//   AuthProvider({Key? key, required this.model, required this.child})
+//       : super(key: key, notifier: model, child: child);
 
-  final AuthModel model;
-  final Widget child;
+//   final AuthModel model;
+//   final Widget child;
 
-  static AuthProvider? watch(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<AuthProvider>();
-  }
-  //здесь онили подписка на Модель
+//   static AuthProvider? watch(BuildContext context) {
+//     return context.dependOnInheritedWidgetOfExactType<AuthProvider>();
+//   }
+//   //здесь онили подписка на Модель
 
-  static AuthProvider? read(BuildContext context) {
-    final widget =
-        context.getElementForInheritedWidgetOfExactType<AuthProvider>()?.widget;
-    return widget is AuthProvider ? widget : null;
-  }
-  // тут в виджет для нас вернет модель а обратьться к ней можно
-  // final model = AuthProvider.read(context);
-  // А дальше у model тягать методы и действия описаннаае внутри
-}
+//   static AuthProvider? read(BuildContext context) {
+//     final widget =
+//         context.getElementForInheritedWidgetOfExactType<AuthProvider>()?.widget;
+//     return widget is AuthProvider ? widget : null;
+//   }
+//   // тут в виджет для нас вернет модель а обратьться к ней можно
+//   // final model = AuthProvider.read(context);
+//   // А дальше у model тягать методы и действия описаннаае внутри
+// }
 
 class NotifierProvider<Model extends ChangeNotifier> extends InheritedNotifier {
   //не забыть поменять от кого наследуется инхерит
@@ -107,14 +107,16 @@ class NotifierProvider<Model extends ChangeNotifier> extends InheritedNotifier {
   final Model model;
   final Widget child;
 
-  static NotifierProvider? watch(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<NotifierProvider>();
+  static Model? watch<Model extends ChangeNotifier>(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<NotifierProvider<Model>>()
+        ?.model;
   }
 
-  static NotifierProvider? read(BuildContext context) {
+  static Model? read<Model extends ChangeNotifier>(BuildContext context) {
     final widget = context
-        .getElementForInheritedWidgetOfExactType<NotifierProvider>()
+        .getElementForInheritedWidgetOfExactType<NotifierProvider<Model>>()
         ?.widget;
-    return widget is NotifierProvider ? widget : null;
+    return widget is NotifierProvider<Model> ? widget.model : null;
   }
 }
