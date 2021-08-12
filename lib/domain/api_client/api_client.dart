@@ -118,59 +118,42 @@ class ApiClient {
     required String password,
     required String requestToken,
   }) async {
-    try {
-      final url = _makeUri('/authentication/token/validate_with_login?api_key=',
-          {'api_key': _apiKey});
-      final parameters = <String, dynamic>{
-        'username': username,
-        'password': password,
-        'request_token': requestToken,
-      };
-      final request = await _client.postUrl(
-        url,
-      );
-      request.headers.contentType = ContentType.json;
-      request.write(jsonEncode(parameters));
-      final responce = await request.close();
-      final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-      _validateResponse(responce, json);
-      final token = json['request_token'] as String;
+    final parametrs = <String, dynamic>{
+      'username': username,
+      'password': password,
+      'request_token': requestToken,
+    };
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final token = jsonMap['request_token'] as String;
       return token;
-    } on SocketException {
-      throw ApiClientException(ApiClientExceptionType.Network);
-    } on ApiClientException {
-      rethrow;
-    } catch (_) {
-      throw ApiClientException(ApiClientExceptionType.Other);
-    }
+    };
+    final result = _post('/authentication/token/validate_with_login?api_key=',
+        parametrs, parser, <String, dynamic>{'api_key': _apiKey});
+    return result;
   }
 
   Future<String> _makeSession({
     required String requestToken,
   }) async {
-    try {
-      final url = _makeUri(
-          '/authentication/session/new?api_key=', {'api_key': _apiKey});
-      final parameters = <String, dynamic>{
-        'request_token': requestToken,
-      };
-      final request = await _client.postUrl(
-        url,
-      );
-      request.headers.contentType = ContentType.json;
-      request.write(jsonEncode(parameters));
-      final responce = await request.close();
-      final json = (await responce.jsonDecode()) as Map<String, dynamic>;
-      _validateResponse(responce, json);
-      final sessionId = json['session_id'] as String;
+    final parameters = <String, dynamic>{
+      'request_token': requestToken,
+    };
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final sessionId = jsonMap['session_id'] as String;
       return sessionId;
-    } on SocketException {
-      throw ApiClientException(ApiClientExceptionType.Network);
-    } on ApiClientException {
-      rethrow;
-    } catch (_) {
-      throw ApiClientException(ApiClientExceptionType.Other);
-    }
+    };
+
+    final result = _post(
+      '/authentication/session/new?api_key=',
+      parameters,
+      parser,
+      <String, dynamic>{
+        'api_key': _apiKey,
+      },
+    );
+    return result;
   }
 
   void _validateResponse(HttpClientResponse responce, dynamic json) {
