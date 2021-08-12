@@ -62,12 +62,6 @@ class _MovieListWidgetState extends State<MovieListWidget> {
   final _searchController = TextEditingController();
 
   final _movies = [
-    // Movie(
-    //   AppImages.moviePlaceHolder,
-    //   'Смертельная битва',
-    //   'April  7, 2021',
-    //   'Washed-up MMA fighter Cole Young, unaware of his heritage',
-    // ),
     Movie(
       id: 1,
       imageName: AppImages.moviePlaceHolder,

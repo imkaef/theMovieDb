@@ -18,12 +18,11 @@ class AuthModel extends ChangeNotifier {
 
   // String? _sessionId;
 // добавляем метод из apiclient
-  final _apiKlient = ApiClient();
+  final _apiClient = ApiClient();
 
   final _sessionDataProvider = SessionDataProvider();
 
   Future<void> auth(BuildContext context) async {
-    print('auth start');
     final login = loginTextController.text;
     final password = passwordTextController.text;
     if (login.isEmpty || password.isEmpty) {
@@ -38,7 +37,7 @@ class AuthModel extends ChangeNotifier {
     notifyListeners();
     String? sessionId;
     try {
-      sessionId = await _apiKlient.auth(username: login, password: password);
+      sessionId = await _apiClient.auth(username: login, password: password);
       print('$sessionId');
     } catch (e) {
       _errorMessage = 'Неправильный логин или пароль!';
@@ -55,7 +54,8 @@ class AuthModel extends ChangeNotifier {
     }
     await _sessionDataProvider.setSessionId(sessionId);
 
-    Navigator.of(context).pushReplacementNamed(MainNavigationRouteNames.mainScreen);
+    Navigator.of(context)
+        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
     //notifyListeners();
     //_sessionId =_apiKlient.auth(username: login, password: password);
   }
@@ -80,16 +80,41 @@ class AuthProvider extends InheritedNotifier {
   //не забыть поменять от кого наследуется инхерит
   AuthProvider({Key? key, required this.model, required this.child})
       : super(key: key, notifier: model, child: child);
+
   final AuthModel model;
   final Widget child;
 
   static AuthProvider? watch(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<AuthProvider>();
   }
+  //здесь онили подписка на Модель
 
   static AuthProvider? read(BuildContext context) {
     final widget =
         context.getElementForInheritedWidgetOfExactType<AuthProvider>()?.widget;
     return widget is AuthProvider ? widget : null;
+  }
+  // тут в виджет для нас вернет модель а обратьться к ней можно
+  // final model = AuthProvider.read(context);
+  // А дальше у model тягать методы и действия описаннаае внутри
+}
+
+class NotifierProvider<Model extends ChangeNotifier> extends InheritedNotifier {
+  //не забыть поменять от кого наследуется инхерит
+  NotifierProvider({Key? key, required this.model, required this.child})
+      : super(key: key, notifier: model, child: child);
+
+  final Model model;
+  final Widget child;
+
+  static NotifierProvider? watch(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<NotifierProvider>();
+  }
+
+  static NotifierProvider? read(BuildContext context) {
+    final widget = context
+        .getElementForInheritedWidgetOfExactType<NotifierProvider>()
+        ?.widget;
+    return widget is NotifierProvider ? widget : null;
   }
 }
