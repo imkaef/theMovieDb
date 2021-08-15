@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/movie_list/movie_list_model.dart';
@@ -20,6 +21,8 @@ class MovieListWidget extends StatelessWidget {
             final movie = model.movies[index];
             //делаем картинки
             final posterPath = movie.posterPath;
+            //fix date
+            final movieRealiseDate = movie.releaseDate;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Stack(
@@ -72,7 +75,7 @@ class MovieListWidget extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Text(
-                                    movie.releaseDate?.toString() ?? '123124',
+                                    model.stringFromDate(movie.releaseDate),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(color: Colors.grey),
