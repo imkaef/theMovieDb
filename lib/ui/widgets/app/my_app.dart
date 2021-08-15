@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 import 'package:the_movie_db/ui/widgets/app/my_app_model.dart';
@@ -24,6 +25,15 @@ class MyApp extends StatelessWidget {
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.grey),
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('ru', 'RU'),
+      ],
       routes: mainNavigation.routes,
       initialRoute: mainNavigation.initialRoute(model.isAuth),
       onGenerateRoute: mainNavigation.onGenerateRoute,

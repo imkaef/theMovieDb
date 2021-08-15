@@ -14,7 +14,7 @@ class MovieListWidget extends StatelessWidget {
       children: [
         ListView.builder(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          padding: EdgeInsets.only(top: 76),
+          padding: EdgeInsets.only(top: 100),
           itemCount: model.movies.length,
           itemExtent: 163,
           itemBuilder: (BuildContext context, int index) {
@@ -22,7 +22,6 @@ class MovieListWidget extends StatelessWidget {
             //делаем картинки
             final posterPath = movie.posterPath;
             //fix date
-            final movieRealiseDate = movie.releaseDate;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Stack(
@@ -110,16 +109,28 @@ class MovieListWidget extends StatelessWidget {
             );
           },
         ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: TextField(
-            decoration: InputDecoration(
-                labelText: 'Search',
-                filled: true,
-                fillColor: Colors.white.withAlpha(220),
-                border: OutlineInputBorder(borderRadius: _MBR.custom)),
+        Expanded(
+          child: Row(
+            children: [
+              ElevatedButton(
+                  onPressed: () => model.setLocale('ru-Ru'),
+                  child: Text('Ru locale')),
+              ElevatedButton(
+                  onPressed: () => model.setLocale('en-US'),
+                  child: Text('En locale')),
+            ],
           ),
         )
+        // Padding(
+        //   padding: const EdgeInsets.all(16),
+        //   child: TextField(
+        //     decoration: InputDecoration(
+        //         labelText: 'Search',
+        //         filled: true,
+        //         fillColor: Colors.white.withAlpha(220),
+        //         border: OutlineInputBorder(borderRadius: _MBR.custom)),
+        //   ),
+        // )
       ],
     );
   }
