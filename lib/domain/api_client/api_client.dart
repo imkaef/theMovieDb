@@ -15,11 +15,15 @@ class ApiClientException implements Exception {
 }
 
 class ApiClient {
+  static String imageUrl(String path) {
+    return '$_imageUrl$path';
+  }
+
   final _client = HttpClient();
   static const _host =
       'https://api.themoviedb.org/3'; //куда мы юудем отправлять запросы все запросы начинаются с этого урл
-  // static const _imageUrl =
-  //     'https://image.tmdb.org/t/p/w500'; // если нужны картинки они лежат тут
+  static const _imageUrl =
+      'https://image.tmdb.org/t/p/w500'; // если нужны картинки они лежат тут
   static const _apiKey =
       '5eb1af50a385519917194d83bbebfab3'; // апи кей этот ключ в личном кабинете с помощью него можно работать с прогой
   // надо сделать 3 запроса мэйк токен
