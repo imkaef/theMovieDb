@@ -6,7 +6,7 @@ class MovieListWidget extends StatelessWidget {
   const MovieListWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.readFromModel<MovieListModel>(context);
+    final model = NotifierProvider.watchOnModel<MovieListModel>(context);
     if (model == null) return SizedBox.shrink();
     return Stack(
       children: [
