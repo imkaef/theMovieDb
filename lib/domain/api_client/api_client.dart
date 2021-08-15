@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:the_movie_db/domain/entity/popular_movie_response.dart';
+
 // перечисление ошибок
 enum ApiClientExceptionType { Network, Auth, Other }
 
@@ -166,6 +168,25 @@ class ApiClient {
         throw ApiClientException(ApiClientExceptionType.Other);
       }
     }
+  }
+
+  //запрос на получение списка фильмов
+  Future<PopularMovieResponse> popularMovie(int page, String locale) async {
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = PopularMovieResponse.fromJson(jsonMap);
+      return response;
+    };
+    final result = _get(
+      '/movie/popular',
+      parser,
+      <String, dynamic>{
+        'api_key': _apiKey,
+        'page': page.toString(),
+        'language': locale,
+      },
+    );
+    return result;
   }
 }
 
