@@ -3,6 +3,7 @@ import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 import 'package:the_movie_db/ui/widgets/main_screen/main_screen_model.dart';
+import 'package:the_movie_db/ui/widgets/movie_list/movie_list_model.dart';
 import 'package:the_movie_db/ui/widgets/movie_list/movie_list_widget.dart';
 import '../customProgressBarWidgetScreen.dart';
 
@@ -15,6 +16,8 @@ class MainScreenWidget extends StatefulWidget {
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 1;
+  final movieListModel = MovieListModel();
+
   void onSelectTab(int index) {
     if (_selectedTab == index)
       return; //не  будет перестраиваться так как ничего не поменялось
@@ -24,8 +27,14 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    movieListModel.loadMovies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.read<MainScreenModel>(context);
+    final model = NotifierProvider.watchOnModel<MainScreenModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('TMDB'),
@@ -33,27 +42,12 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       body: IndexedStack(
         index: _selectedTab,
         children: [
-          Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Colors.red, Colors.yellow, Colors.green])),
-            child: Center(
-              child: Container(
-                width: 100,
-                height: 100,
-                child: RadialPercentWidget(
-                  child: Text('news'),
-                  fillColor: Colors.green.shade300,
-                  freeColor: Colors.grey,
-                  lineColor: Colors.purple,
-                  lineWidth: 7,
-                  percent: 24,
-                ),
-              ),
-            ),
+          Container(),
+          NotifierProvider(
+            model: movieListModel,
+            child: const MovieListWidget(),
           ),
-          MovieListWidget(),
-          SerialsListWidget(),
+          const SerialsListWidget(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -75,7 +69,6 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         // onTap: (value) => onSelectTab(value),
         //onTap: (index) => _selectedTab = index, правило функции тут в коде не писать выносить их отдельно
         onTap: onSelectTab,
-        
       ),
     );
   }

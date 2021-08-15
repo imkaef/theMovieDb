@@ -104,7 +104,7 @@ class ApiClient {
   Future<String> _makeToken() async {
     final parser = (dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      final token = json['request_token'] as String;
+      final token = jsonMap['request_token'] as String;
       return token;
     };
     final result = _get(

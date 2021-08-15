@@ -8,13 +8,13 @@ class NotifierProvider<Model extends ChangeNotifier> extends InheritedNotifier {
   final Model model;
   final Widget child;
 
-  static Model? watch<Model extends ChangeNotifier>(BuildContext context) {
+  static Model? watchOnModel<Model extends ChangeNotifier>(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<NotifierProvider<Model>>()
         ?.model;
   }
 
-  static Model? read<Model extends ChangeNotifier>(BuildContext context) {
+  static Model? readFromModel<Model extends ChangeNotifier>(BuildContext context) {
     final widget = context
         .getElementForInheritedWidgetOfExactType<NotifierProvider<Model>>()
         ?.widget;

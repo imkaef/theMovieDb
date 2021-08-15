@@ -81,7 +81,7 @@ class _FormWidget extends StatelessWidget {
   const _FormWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.read<AuthModel>(context);
+    final model = NotifierProvider.readFromModel<AuthModel>(context);
 
     final textStyle = const TextStyle(
       fontSize: 16,
@@ -164,7 +164,7 @@ class _AuthButtonWidget extends StatelessWidget {
   }) : super(key: key);
 
   void pressff(BuildContext context) {
-    final model = NotifierProvider.read<AuthModel>(context);
+    final model = NotifierProvider.readFromModel<AuthModel>(context);
     if (model?.canStartAuth == true) {
       model?.auth(context);
     }
@@ -173,7 +173,7 @@ class _AuthButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = const Color(0xFF01b4e4);
-    final model = NotifierProvider.watch<AuthModel>(context);
+    final model = NotifierProvider.watchOnModel<AuthModel>(context);
     final child = model?.isAuthinProgress == true
         ? Center(
             child: const SizedBox(
@@ -213,7 +213,7 @@ class _ErrorMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final errorMessage =
-        NotifierProvider.watch<AuthModel>(context)?.errorMessage;
+        NotifierProvider.watchOnModel<AuthModel>(context)?.errorMessage;
     if (errorMessage == null) return const SizedBox.shrink();
     return Text(errorMessage,
         style: TextStyle(color: Colors.red, fontSize: 17));
