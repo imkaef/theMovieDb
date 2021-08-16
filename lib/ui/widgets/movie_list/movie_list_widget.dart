@@ -124,8 +124,9 @@ class MovieListWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16),
           child: TextField(
+            onChanged: (text) => model.searchMovie(text),
             decoration: InputDecoration(
-                labelText: 'Search',
+                labelText: 'Поиск',
                 filled: true,
                 fillColor: Colors.white.withAlpha(220),
                 border: OutlineInputBorder(borderRadius: _MBR.custom)),
