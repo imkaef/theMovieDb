@@ -11,6 +11,10 @@ class MovieListModel extends ChangeNotifier {
   late DateFormat _dateFormat;
   String _locale = '';
   late int _currentPage;
+  //добавляем защиту
+  late int _totalPage;
+  var _isLoadingInProgres =
+      false; //когда мы грузим страницу не надо вызывать следующую загрузку
 
 //настройка локализации
   void setupLocale(BuildContext context) {
@@ -20,6 +24,7 @@ class MovieListModel extends ChangeNotifier {
     _dateFormat = DateFormat.yMMMEd(locale);
     _movies.clear();
     _currentPage = 0;
+    _totalPage = 1;
     loadMovies();
   }
 
@@ -36,11 +41,20 @@ class MovieListModel extends ChangeNotifier {
   }
 
   Future<void> loadMovies() async {
+    if (_isLoadingInProgres || _currentPage >= _totalPage) return;
+    _isLoadingInProgres = !_isLoadingInProgres;
     final _nextpage = _currentPage + 1;
-    final responceMovies = await _apiClient.popularMovie(_nextpage, _locale);
-    _movies.addAll(responceMovies.movies);
-    _currentPage = responceMovies.page;
-    notifyListeners();
+    try {
+      final responceMovies = await _apiClient.popularMovie(_nextpage, _locale);
+      //если и будет ощиька то только сверху и поля ниже не выполнятся
+      _movies.addAll(responceMovies.movies);
+      _currentPage = responceMovies.page;
+      _totalPage = responceMovies.totalPages;
+      _isLoadingInProgres = !_isLoadingInProgres;
+      notifyListeners();
+    } catch (e) {
+      _isLoadingInProgres = !_isLoadingInProgres;
+    }
   }
 
   String stringFromDate(DateTime? date) =>
