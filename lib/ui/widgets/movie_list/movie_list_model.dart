@@ -10,6 +10,7 @@ class MovieListModel extends ChangeNotifier {
   List<Movie> get movies => List.unmodifiable(_movies);
   late DateFormat _dateFormat;
   String _locale = '';
+  late int _currentPage;
 
 //настройка локализации
   void setupLocale(BuildContext context) {
@@ -18,6 +19,7 @@ class MovieListModel extends ChangeNotifier {
     _locale = locale;
     _dateFormat = DateFormat.yMMMEd(locale);
     _movies.clear();
+    _currentPage = 0;
     loadMovies();
   }
 
@@ -28,14 +30,16 @@ class MovieListModel extends ChangeNotifier {
   }
 
   Future<void> lM(String l) async {
-    final responceMovies = await _apiClient.popularMovie(1, l);
+    final responceMovies = await _apiClient.popularMovie(2, l);
     _movies.addAll(responceMovies.movies);
     notifyListeners();
   }
 
   Future<void> loadMovies() async {
-    final responceMovies = await _apiClient.popularMovie(1, _locale);
+    final _nextpage = _currentPage + 1;
+    final responceMovies = await _apiClient.popularMovie(_nextpage, _locale);
     _movies.addAll(responceMovies.movies);
+    _currentPage = responceMovies.page;
     notifyListeners();
   }
 
@@ -46,5 +50,12 @@ class MovieListModel extends ChangeNotifier {
     final id = _movies[index].id;
     Navigator.of(context)
         .pushNamed(MainNavigationRouteNames.movieDetails, arguments: id);
+  }
+
+  void showedMovieAtIndex(int index) {
+    //когда список фильмов подходит к концу нажо вызвать загрузку
+    if (index < _movies.length - 1) return;
+    loadMovies();
+    print(index);
   }
 }

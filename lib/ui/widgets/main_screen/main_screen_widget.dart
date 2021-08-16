@@ -27,7 +27,6 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     movieListModel.setupLocale(context);
   }
