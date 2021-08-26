@@ -5,7 +5,6 @@ import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 import 'package:the_movie_db/ui/widgets/movie_list/movie_list_model.dart';
 import 'package:the_movie_db/ui/widgets/movie_list/movie_list_widget.dart';
 
-
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
 
@@ -42,7 +41,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         children: [
           Container(),
           NotifierProvider(
-            model: movieListModel,
+            create: () => movieListModel,
             child: const MovieListWidget(),
           ),
           const SerialsListWidget(),

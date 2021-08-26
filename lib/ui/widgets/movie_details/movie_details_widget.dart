@@ -5,8 +5,7 @@ import 'package:the_movie_db/ui/widgets/movie_details/movie_details_screen_cast_
 
 
 class MovieDetailsWidget extends StatefulWidget {
-  const MovieDetailsWidget({Key? key, required this.movie}) : super(key: key);
-  final int movie;
+  const MovieDetailsWidget({Key? key}) : super(key: key);
   @override
   _MovieDetailsWidgetState createState() => _MovieDetailsWidgetState();
 }
@@ -16,7 +15,7 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.movie.toString()),
+        title: Text(''),
       ),
       body: ColoredBox(
         color: AppColors.blackBackgroundMovieDetail,

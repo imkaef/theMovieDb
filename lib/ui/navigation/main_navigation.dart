@@ -6,6 +6,7 @@ import 'package:the_movie_db/ui/widgets/auth/auth_widget.dart';
 import 'package:the_movie_db/ui/widgets/customProgressBarWidgetScreen.dart';
 import 'package:the_movie_db/ui/widgets/main_screen/main_screen_model.dart';
 import 'package:the_movie_db/ui/widgets/main_screen/main_screen_widget.dart';
+import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_widget.dart';
 
 abstract class MainNavigationRouteNames {
@@ -23,11 +24,11 @@ class MainNavigation {
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRouteNames.auth: (context) => NotifierProvider(
           child: const AuthWidget(),
-          model: AuthModel(),
+          create: () => AuthModel(),
         ),
     MainNavigationRouteNames.mainScreen: (context) => NotifierProvider(
           child: MainScreenWidget(),
-          model: MainScreenModel(),
+          create: () => MainScreenModel(),
         ),
     MainNavigationRouteNames.example: (context) => CustomProgressBarWidget(),
   };
@@ -38,7 +39,9 @@ class MainNavigation {
         final arguments = settings.arguments;
         final movieId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
-            builder: (context) => MovieDetailsWidget(movie: movieId));
+            builder: (context) => NotifierProvider(
+                create: () => MovieDetailsModel(movieId: movieId),
+                child: MovieDetailsWidget()));
       default:
         const widget = Text('Navigation error');
         return MaterialPageRoute(builder: (context) => widget);
