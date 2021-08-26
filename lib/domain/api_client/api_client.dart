@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:the_movie_db/domain/entity/movie_details.dart';
 import 'package:the_movie_db/domain/entity/popular_movie_response.dart';
 
 // перечисление ошибок
@@ -211,6 +212,28 @@ class ApiClient {
         'query': query,
         'page': page.toString(),
         'include_adult': true.toString(),
+      },
+    );
+    return result;
+  }
+
+// параметры которые принимает фьюча написана на странице с tmdb get movie
+// муви айди и язык
+  Future<MovieDetails> movieDetails(
+    int movieId,
+    String locale,
+  ) async {
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = MovieDetails.fromJson(jsonMap);
+      return response;
+    };
+    final result = _get(
+      '/movie/$movieId',
+      parser,
+      <String, dynamic>{
+        'api_key': _apiKey,
+        'language': locale,
       },
     );
     return result;

@@ -13,7 +13,6 @@ class MovieDetailsMainInfoWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // _TopPosterWidget(),
         _TopPosterWidget(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
