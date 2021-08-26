@@ -15,6 +15,8 @@ class MovieDetailsModel extends ChangeNotifier {
     required this.movieId,
   });
 
+  MovieDetails? get movieDetails => _movieDetails;
+
   Future<void> setupLocale(BuildContext context) async {
     final locale = Localizations.localeOf(context).toLanguageTag();
     if (locale == _locale) return;
