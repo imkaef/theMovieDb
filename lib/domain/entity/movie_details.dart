@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:the_movie_db/domain/entity/movie_date_parser.dart';
 
 part 'movie_details.g.dart';
 
@@ -19,7 +20,7 @@ class MovieDetails {
   final String? posterPath;
   final List<ProductionCompanies> productionCompanies;
   final List<ProductionCountries> productionCountries;
-  @JsonKey(fromJson: _parseDateFromString)
+  @JsonKey(fromJson: parseMovieDateFromString)
   final DateTime? releaseDate;
   final int revenue;
   final int? runtime;
@@ -61,10 +62,7 @@ class MovieDetails {
       _$MovieDetailsFromJson(json);
   Map<String, dynamic> toJson() => _$MovieDetailsToJson(this);
 //перевод даты как в файле movie
-  static DateTime? _parseDateFromString(String? rawDate) {
-    if (rawDate == null || rawDate.isEmpty) return null;
-    return DateTime.tryParse(rawDate);
-  }
+ 
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
