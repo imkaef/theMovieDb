@@ -89,6 +89,7 @@ class LinearGradientWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
