@@ -2,18 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class CustomProgressBarWidget extends StatefulWidget {
+class CustomProgressBarWidget extends StatelessWidget {
   const CustomProgressBarWidget({Key? key}) : super(key: key);
 
   @override
-  _CustomProgressBarWidgetState createState() =>
-      _CustomProgressBarWidgetState();
-}
-
-class _CustomProgressBarWidgetState extends State<CustomProgressBarWidget> {
-  @override
   Widget build(BuildContext context) {
-    return const CustomProgBarWidget();
+    return Scaffold(
+      body: CustomProgBarWidget(),
+    );
   }
 }
 
