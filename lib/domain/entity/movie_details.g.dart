@@ -16,7 +16,7 @@ MovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) {
             json['belongs_to_collection'] as Map<String, dynamic>),
     budget: json['budget'] as int,
     genres: (json['genres'] as List<dynamic>)
-        .map((e) => Genres.fromJson(e as Map<String, dynamic>))
+        .map((e) => Genre.fromJson(e as Map<String, dynamic>))
         .toList(),
     homepage: json['homepage'] as String?,
     id: json['id'] as int,
@@ -97,14 +97,14 @@ Map<String, dynamic> _$BelongsToCollectionToJson(
       'backdrop_path': instance.backdropPath,
     };
 
-Genres _$GenresFromJson(Map<String, dynamic> json) {
-  return Genres(
+Genre _$GenreFromJson(Map<String, dynamic> json) {
+  return Genre(
     id: json['id'] as int,
     name: json['name'] as String,
   );
 }
 
-Map<String, dynamic> _$GenresToJson(Genres instance) => <String, dynamic>{
+Map<String, dynamic> _$GenreToJson(Genre instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };

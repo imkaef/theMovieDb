@@ -8,12 +8,12 @@ class MovieDetailsModel extends ChangeNotifier {
 
   final int movieId;
   MovieDetails? _movieDetails;
-  late final String _locale;
+  String _locale = '';
   late DateFormat _dateFormat;
 
-  MovieDetailsModel({
-    required this.movieId,
-  });
+  MovieDetailsModel(
+    this.movieId,
+  );
 
   MovieDetails? get movieDetails => _movieDetails;
 

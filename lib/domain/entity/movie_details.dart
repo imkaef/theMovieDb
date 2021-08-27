@@ -9,7 +9,7 @@ class MovieDetails {
   final String? backdropPath;
   final BelongsToCollection? belongsToCollection;
   final int budget;
-  final List<Genres> genres;
+  final List<Genre> genres;
   final String? homepage;
   final int id;
   final String? imdbId;
@@ -62,7 +62,7 @@ class MovieDetails {
       _$MovieDetailsFromJson(json);
   Map<String, dynamic> toJson() => _$MovieDetailsToJson(this);
 //перевод даты как в файле movie
- 
+
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -85,13 +85,13 @@ class BelongsToCollection {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Genres {
+class Genre {
   final int id;
   final String name;
 
-  Genres({required this.id, required this.name});
-  factory Genres.fromJson(Map<String, dynamic> json) => _$GenresFromJson(json);
-  Map<String, dynamic> toJson() => _$GenresToJson(this);
+  Genre({required this.id, required this.name});
+  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+  Map<String, dynamic> toJson() => _$GenreToJson(this);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
