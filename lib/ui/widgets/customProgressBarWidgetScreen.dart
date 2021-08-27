@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class RadialPercentWidget extends StatelessWidget {
   final Widget child;
-  double percent;
+  final double percent;
   final Color fillColor;
   final Color lineColor;
   final Color freeColor;
@@ -22,13 +22,16 @@ class RadialPercentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    percent = percent / 100;
+    //ошибка с этим полем оно было в в классе ниже изза чего ошибка когда
+    //происходил метод билд значение пронцента всегда делились на 100
+    //и если 3 раза поделить то будет ниже нуля вот по этому и была перерисовка
+    final mypercent = percent / 100;
     return Stack(
       fit: StackFit.expand,
       children: [
         CustomPaint(
           painter: _RadialPercentPainter(
-            percent: percent,
+            percent: mypercent,
             fillColor: fillColor,
             lineColor: lineColor,
             freeColor: freeColor,

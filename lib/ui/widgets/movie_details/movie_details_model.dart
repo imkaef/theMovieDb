@@ -30,13 +30,20 @@ class MovieDetailsModel extends ChangeNotifier {
     final locale = Localizations.localeOf(context).toLanguageTag();
     if (locale == _locale) return;
     _locale = locale;
-    _dateFormat = DateFormat.y(locale);
+    _dateFormat = DateFormat.yMMMMd(locale);
     await loadDetails();
   }
 
   Future<Image> _downloadImage(String src) async {
-    return Image.network(ApiClient.imageUrl(src));
+    final image = Image.network(
+      ApiClient.imageUrl(src),
+      filterQuality: FilterQuality.high,
+    );
+    return image;
   }
+
+  String stringFromDate(DateTime? date) =>
+      date != null ? _dateFormat.format(date) : '';
 
   Future<void> loadDetails() async {
     //пропустил авайт этого надо дождаться
@@ -59,4 +66,5 @@ class MovieDetailsModel extends ChangeNotifier {
   //       ? generator.lightMutedColor?.color
   //       : PaletteColor(Colors.amber, 2);
   // }
+  //попробывать с ключевым словом ретерн сделатьт проверку на нот налл
 }

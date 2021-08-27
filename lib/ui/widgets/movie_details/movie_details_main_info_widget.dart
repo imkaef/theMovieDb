@@ -226,18 +226,59 @@ class _SummeryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: AppColors.summaryMovieDetail,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-        child: Text(
-          '18+ мультфильм, комедия, НФ и Фэнтези, Боевик и Приключения 22m',
-          style: TextStyle(
-            fontSize: 16,
-            color: AppColors.titleColorMovieDetail,
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+    if (model == null) return const SizedBox.shrink();
+    //собираем массив из слов которые надо вписать
+    var summary = <String>[];
+    // записываем в массив дату когда был выпущен фильм
+    final releaseDate = model.movieDetails?.releaseDate;
+    if (releaseDate != null) {
+      // переводим дату в стрингу и записываем в массив метод превода такой же
+      // как в муви лист модал
+      summary.add(model.stringFromDate(releaseDate));
+    }
+    // собираем страны на которых есть
+    final productionCountries = model.movieDetails?.productionCountries;
+    // если массив не нал и не пуст добвляем элементы
+    if (productionCountries != null && productionCountries.isNotEmpty) {
+      var productionCountriesNames = <String>[];
+      for (var pCN in productionCountries) {
+        productionCountriesNames.add(pCN.iso);
+      }
+      summary.add(productionCountriesNames.join(', '));
+      // summary.add('(${productionCountries.first.iso})');
+    }
+    // Продолжительность фильма тут парсим его в часы из минут
+    final runtime = model.movieDetails?.runtime ?? 0;
+    final duration = Duration(minutes: runtime);
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes.remainder(60);
+    summary.add('${hours}h ${minutes}m');
+    // Массив жанров в которых представлен фильм
+    final genres = model.movieDetails?.genres;
+    if (genres != null && genres.isNotEmpty) {
+      var genresNames = <String>[];
+      for (var genr in genres) {
+        genresNames.add(genr.name);
+      }
+      summary.add(genresNames.join(', '));
+    }
+
+    return Center(
+      child: ColoredBox(
+        color: const Color.fromRGBO(22, 21, 25, 1.0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+          child: Text(
+            summary.join(' '),
+            maxLines: 3,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+            ),
           ),
-          textAlign: TextAlign.center,
-          maxLines: 3,
         ),
       ),
     );
