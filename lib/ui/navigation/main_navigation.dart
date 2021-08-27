@@ -40,7 +40,9 @@ class MainNavigation {
         final movieId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
             builder: (context) => NotifierProvider(
-                create: () => MovieDetailsModel(movieId: movieId),
+                //делаем тут же настройку локали
+                create: () =>
+                    MovieDetailsModel(movieId: movieId)..setupLocale(context),
                 child: MovieDetailsWidget()));
       default:
         const widget = Text('Navigation error');
