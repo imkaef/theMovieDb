@@ -11,7 +11,7 @@ class NotifierProvider<Model extends ChangeNotifier> extends StatefulWidget {
 
   final Model Function() create;
   final Widget child;
-
+// управляем мы моделью
   final bool isManagingModel;
 
   @override
