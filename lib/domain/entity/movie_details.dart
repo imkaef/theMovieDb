@@ -66,6 +66,16 @@ class MovieDetails {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
+class BelongsToCollection {
+  const BelongsToCollection();
+
+  factory BelongsToCollection.fromJson(Map<String, dynamic> json) =>
+      _$BelongsToCollectionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BelongsToCollectionToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Genre {
   final int id;
   final String name;
@@ -128,23 +138,4 @@ class SpokenLanguage {
       _$SpokenLanguageFromJson(json);
 
   Map<String, dynamic> toJson() => _$SpokenLanguageToJson(this);
-}
-
-@JsonSerializable(fieldRename: FieldRename.snake)
-class BelongsToCollection {
-  final int id;
-  final String name;
-  final String posterPath;
-  final String backdropPath;
-
-  BelongsToCollection({
-    required this.id,
-    required this.name,
-    required this.posterPath,
-    required this.backdropPath,
-  });
-
-  factory BelongsToCollection.fromJson(Map<String, dynamic> json) =>
-      _$BelongsToCollectionFromJson(json);
-  Map<String, dynamic> toJson() => _$BelongsToCollectionToJson(this);
 }
