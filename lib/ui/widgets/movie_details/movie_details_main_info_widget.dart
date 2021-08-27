@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/const/app_images.dart';
+import 'package:the_movie_db/domain/api_client/api_client.dart';
+import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/customProgressBarWidgetScreen.dart';
-
+import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
 
 class MovieDetailsMainInfoWidget extends StatelessWidget {
   const MovieDetailsMainInfoWidget({Key? key}) : super(key: key);
@@ -34,11 +36,14 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+    final backdropPath = model?.movieDetails?.backdropPath;
+    final posterPath = model?.movieDetails?.posterPath;
     return Stack(
       fit: StackFit.loose,
       children: [
         ShaderMask(
-          //добавление краски на топ изображение фильма 
+          //добавление краски на топ изображение фильма
           shaderCallback: (rect) {
             return LinearGradient(
               colors: [
@@ -53,16 +58,18 @@ class _TopPosterWidget extends StatelessWidget {
             );
           },
           blendMode: BlendMode.dstIn,
-          child: Image(
-            image: (AppImages.topHeader),
-          ),
+          child: backdropPath != null
+              ? Image.network(ApiClient.imageUrl(backdropPath))
+              : SizedBox.shrink(),
         ),
         Positioned(
           top: 20,
           left: 15,
           bottom: 20,
           child: Container(
-            child: Image(image: AppImages.topHeaderSubImage),
+            child: posterPath != null
+                ? Image.network(ApiClient.imageUrl(posterPath))
+                : SizedBox.shrink(),
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -81,6 +88,7 @@ class LinearGradientWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -102,6 +110,7 @@ class _MovieNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
     return Center(
       child: RichText(
         textAlign: TextAlign.center,
