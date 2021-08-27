@@ -241,11 +241,7 @@ class _SummeryWidget extends StatelessWidget {
     final productionCountries = model.movieDetails?.productionCountries;
     // если массив не нал и не пуст добвляем элементы
     if (productionCountries != null && productionCountries.isNotEmpty) {
-      var productionCountriesNames = <String>[];
-      for (var pCN in productionCountries) {
-        productionCountriesNames.add(pCN.iso);
-      }
-      summary.add(productionCountriesNames.join(', '));
+      summary.add(productionCountries.first.iso);
       // summary.add('(${productionCountries.first.iso})');
     }
     // Продолжительность фильма тут парсим его в часы из минут
