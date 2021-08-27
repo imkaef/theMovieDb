@@ -38,46 +38,52 @@ class _TopPosterWidget extends StatelessWidget {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
     // final backdropPath = model?.movieDetails?.backdropPath;
     // final posterPath = model?.movieDetails?.posterPath;
-    return Stack(
-      fit: StackFit.loose,
-      children: [
-        ShaderMask(
-          //добавление краски на топ изображение фильма
-          shaderCallback: (rect) {
-            return LinearGradient(
-              colors: [
-                AppColors.blackBackgroundMovieDetail,
-                Colors.transparent,
-              ],
-              stops: [0.5, 0.8],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ).createShader(
-              Rect.fromLTRB(rect.width, rect.height, 0, 0),
-            );
-          },
-          blendMode: BlendMode.dstIn,
-          child: model?.backDrop,
-          // child: backdropPath != null
-          //     ? Image.network(ApiClient.imageUrl(backdropPath))
-          //     : SizedBox.shrink(),
-        ),
-        Positioned(
-          top: 20,
-          left: 20,
-          bottom: 20,
-          child: Container(
-            child: model?.poster,
-            // child: posterPath != null
-            //     ? Image.network(ApiClient.imageUrl(posterPath))
+    return AspectRatio(
+      aspectRatio: 390 / 220,
+      //аспект ратио нужен чтобы установить соотношение с которым будет
+      //отображаться постер большоq
+      //на меньшем экране юудет тоже ментше
+      child: Stack(
+        //  fit: StackFit.loose,
+        children: [
+          ShaderMask(
+            //добавление краски на топ изображение фильма
+            shaderCallback: (rect) {
+              return LinearGradient(
+                colors: [
+                  AppColors.blackBackgroundMovieDetail,
+                  Colors.transparent,
+                ],
+                stops: [0.5, 0.8],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ).createShader(
+                Rect.fromLTRB(rect.width, rect.height, 0, 0),
+              );
+            },
+            blendMode: BlendMode.dstIn,
+            child: model?.backDrop,
+            // child: backdropPath != null
+            //     ? Image.network(ApiClient.imageUrl(backdropPath))
             //     : SizedBox.shrink(),
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+          ),
+          Positioned(
+            top: 20,
+            left: 20,
+            bottom: 20,
+            child: Container(
+              child: model?.poster,
+              // child: posterPath != null
+              //     ? Image.network(ApiClient.imageUrl(posterPath))
+              //     : SizedBox.shrink(),
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -112,8 +118,9 @@ class _MovieNameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-    final title = model?.movieDetails?.title;
-    final yeat = model?.movieDetails?.releaseDate;
+    final title = model?.movieDetails?.originalTitle;
+    var year = model?.movieDetails?.releaseDate?.year.toString();
+    year = year != null ? ' ($year)' : 'Неизвестный год';
     return Center(
       child: RichText(
         textAlign: TextAlign.center,
@@ -127,7 +134,7 @@ class _MovieNameWidget extends StatelessWidget {
                   color: AppColors.titleColorMovieDetail),
             ),
             TextSpan(
-                text: yeat.toString(),
+                text: year,
                 style: TextStyle(
                     color: AppColors.summaryDateMovieDetail,
                     fontWeight: FontWeight.w400,

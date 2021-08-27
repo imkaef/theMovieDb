@@ -44,7 +44,7 @@ class _BodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-    final movieDetails = model?.movieDetails;
+   // final movieDetails = model?.movieDetails;
     if (model?.isloading == true)
       return Center(
         child: const CircularProgressIndicator(),
