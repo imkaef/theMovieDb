@@ -30,7 +30,7 @@ class MainNavigation {
           child: MainScreenWidget(),
           create: () => MainScreenModel(),
         ),
-    MainNavigationRouteNames.example: (context) => CustomProgressBarWidget(),
+    //MainNavigationRouteNames.example: (context) => CustomProgressBarWidget(),
   };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {

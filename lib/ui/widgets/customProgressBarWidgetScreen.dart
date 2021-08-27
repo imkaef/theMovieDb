@@ -2,66 +2,32 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class CustomProgressBarWidget extends StatelessWidget {
-  const CustomProgressBarWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomProgBarWidget(),
-    );
-  }
-}
-
-class CustomProgBarWidget extends StatelessWidget {
-  const CustomProgBarWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: 70,
-        height: 70,
-        child: RadialPercentWidget(
-          percent: 17,
-          fillColor: Colors.grey,
-          freeColor: Colors.black,
-          lineColor: Colors.lime,
-          lineWidth: 3,
-          child: Text(
-            '17%',
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class RadialPercentWidget extends StatelessWidget {
   final Widget child;
-  final double percent;
+  double percent;
   final Color fillColor;
-  final Color freeColor;
   final Color lineColor;
+  final Color freeColor;
   final double lineWidth;
-  const RadialPercentWidget({
+
+  RadialPercentWidget({
     Key? key,
     required this.child,
     required this.percent,
     required this.fillColor,
+    required this.lineColor,
     required this.freeColor,
     required this.lineWidth,
-    required this.lineColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    percent = percent / 100;
     return Stack(
       fit: StackFit.expand,
       children: [
         CustomPaint(
-          painter: MyPainter(
+          painter: _RadialPercentPainter(
             percent: percent,
             fillColor: fillColor,
             lineColor: lineColor,
@@ -69,91 +35,87 @@ class RadialPercentWidget extends StatelessWidget {
             lineWidth: lineWidth,
           ),
         ),
-        Center(child: child),
+        Center(
+          child: Padding(
+            padding: EdgeInsets.all(lineWidth * 1.5),
+            child: child,
+          ),
+        ),
       ],
     );
   }
 }
 
-class MyPainter extends CustomPainter {
-  double percent;
+class _RadialPercentPainter extends CustomPainter {
+  final double percent;
   final Color fillColor;
-  final Color freeColor;
   final Color lineColor;
+  final Color freeColor;
   final double lineWidth;
 
-  MyPainter({
+  _RadialPercentPainter({
     required this.percent,
     required this.fillColor,
-    required this.freeColor,
     required this.lineColor,
+    required this.freeColor,
     required this.lineWidth,
   });
+
   @override
   void paint(Canvas canvas, Size size) {
-    percent /= 100;
-    final arcRect = calculateArcRect(size);
-
-    drawBackgroundCircle(canvas, size);
-
-    drawFreeCircle(canvas, arcRect);
-
-    drawfFilledArc(canvas, arcRect);
+    final rect = _calculateCirclesRect(size);
+    _darwBackground(canvas, rect);
+    _darwFreeSpace(canvas, rect);
+    _darwFiledSpace(canvas, rect);
   }
 
-  void drawfFilledArc(Canvas canvas, Rect arcRect) {
-    final paint = Paint();
-    paint.color = lineColor;
-    paint.style = PaintingStyle.stroke;
+  void _darwBackground(Canvas canvas, Rect rect) {
+    final paint = Paint()
+      ..color = fillColor
+      ..style = PaintingStyle.fill;
+    canvas.drawOval(rect, paint);
+  }
+
+  void _darwFiledSpace(Canvas canvas, Rect rect) {
+    final paint = Paint()
+      ..color = lineColor
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
     paint.strokeWidth = lineWidth;
-    paint.strokeCap = StrokeCap.round;
 
     canvas.drawArc(
-      arcRect,
-      3 * pi / 2,
-      2 * pi * percent,
+      rect,
+      _radians(-90),
+      _radians(360 * percent),
       false,
       paint,
     );
   }
 
-  void drawFreeCircle(Canvas canvas, Rect arcRect) {
-    final paint = Paint();
-    paint.color = freeColor;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = lineWidth;
+  void _darwFreeSpace(Canvas canvas, Rect rect) {
+    final paint = Paint()
+      ..color = freeColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = lineWidth;
 
     canvas.drawArc(
-      arcRect,
-      3 * pi / 2,
-      2 * pi,
+      rect,
+      _radians(360 * percent - 90),
+      _radians(360 * (1.0 - percent)),
       false,
       paint,
     );
   }
 
-  void drawBackgroundCircle(Canvas canvas, Size size) {
-    final paint = Paint();
-    paint.color = fillColor;
-    paint.style = PaintingStyle.fill;
-    canvas.drawOval(
-      Offset.zero & size,
-      paint,
-    );
+  double _radians(double degrees) {
+    return degrees * pi / 180;
   }
 
-  Rect calculateArcRect(Size size) {
-    final double linePadding = 2;
-    final offset = (lineWidth / 2 + linePadding);
-    final arcRect = Offset(offset, offset) &
-        Size(size.width - offset * 2, size.height - offset * 2);
-    return arcRect;
-    // final arcRect = Offset((stroke / 2 + linePadding), (stroke / 2 + linePadding)) &
-    //       Size(size.width - (stroke + linePadding * 2),
-    //           size.height - (stroke + linePadding * 2));
-
-    //            Size(size.width - (stroke + linePadding * 2),
-    //           size.height - (stroke + linePadding * 2));
+  Rect _calculateCirclesRect(Size size) {
+    final offset = lineWidth / 2;
+    final rect = Offset(offset, offset) &
+        Size(size.width - lineWidth, size.height - lineWidth);
+    return rect;
   }
 
   @override
