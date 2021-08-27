@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -15,7 +14,7 @@ class MovieDetailsModel extends ChangeNotifier {
   Image? _poster = null;
   Image? _backDrop = null;
   bool _loading = false;
-  late PaletteColor color;
+  late Color color;
 
   MovieDetailsModel(
     this.movieId,
@@ -47,14 +46,17 @@ class MovieDetailsModel extends ChangeNotifier {
     _post != null ? _poster = await _downloadImage(_post) : _poster = null;
     final _back = _movieDetails?.backdropPath;
     _back != null ? _backDrop = await _downloadImage(_back) : _backDrop = null;
-    _updatePalettes();
+    // if (_backDrop != null) await _updatePalettes(_poster);
     _loading = false;
     notifyListeners();
   }
 
   //загрузка цветта экрана
-  _updatePalettes() async {
-    final PaletteGenerator generator;
-    generator = await PaletteGenerator.fromImage(_backDrop);
-  }
+  // _updatePalettes(Image? img) async {
+  //   final PaletteGenerator generator;
+  //   generator = await PaletteGenerator.fromImageProvider(img!.image);
+  //   color = generator.lightMutedColor != null
+  //       ? generator.lightMutedColor?.color
+  //       : PaletteColor(Colors.amber, 2);
+  // }
 }
