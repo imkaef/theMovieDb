@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 
 //новый инхерит сделаный для того чтобы при ребилде он не терял свою модель
 class NotifierProvider<Model extends ChangeNotifier> extends StatefulWidget {
-  const NotifierProvider({
-    Key? key,
-    required this.create,
-    required this.child,
-  }) : super(key: key);
+  const NotifierProvider(
+      {Key? key,
+      required this.create,
+      required this.child,
+      this.isManagingModel = true})
+      : super(key: key);
 
   final Model Function() create;
   final Widget child;
 
-  
+  final bool isManagingModel;
 
   @override
   _NotifierProviderState<Model> createState() =>
@@ -51,7 +52,9 @@ class _NotifierProviderState<Model extends ChangeNotifier>
 
   @override
   void dispose() {
-    _model.dispose();
+    if (widget.isManagingModel) {
+      _model.dispose();
+    }
     super.dispose();
   }
 }

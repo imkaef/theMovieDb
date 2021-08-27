@@ -43,6 +43,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
           NotifierProvider(
             create: () => movieListModel,
             child: const MovieListWidget(),
+            //указываем что виджет управляется не сам
+            isManagingModel: false,
           ),
           const SerialsListWidget(),
         ],
