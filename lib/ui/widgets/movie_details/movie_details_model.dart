@@ -21,7 +21,7 @@ class MovieDetailsModel extends ChangeNotifier {
     final locale = Localizations.localeOf(context).toLanguageTag();
     if (locale == _locale) return;
     _locale = locale;
-    _dateFormat = DateFormat.yMMMEd(locale);
+    _dateFormat = DateFormat.y(locale);
     await loadDetails();
   }
 

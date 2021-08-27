@@ -88,7 +88,6 @@ class LinearGradientWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -111,20 +110,22 @@ class _MovieNameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+    final title = model?.movieDetails?.title;
+    final yeat = model?.movieDetails?.releaseDate;
     return Center(
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
           children: [
             TextSpan(
-              text: 'Рик и Морти',
+              text: title,
               style: TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 17,
                   color: AppColors.titleColorMovieDetail),
             ),
             TextSpan(
-                text: ' (2013)',
+                text: yeat.toString(),
                 style: TextStyle(
                     color: AppColors.summaryDateMovieDetail,
                     fontWeight: FontWeight.w400,
@@ -143,6 +144,8 @@ class _ScoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+    final score = model?.movieDetails?.voteAverage;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
@@ -160,13 +163,13 @@ class _ScoreWidget extends StatelessWidget {
                     height: 40,
                     child: RadialPercentWidget(
                       child: Text(
-                        '88%',
+                        score != null ? '${(10 * score).toInt().toString()}%' : '',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w400,
                             fontSize: 13),
                       ),
-                      percent: 88,
+                      percent: score != null ? score * 10 : 88,
                       fillColor: AppColors.progressBarBackground,
                       freeColor: AppColors.freeLine,
                       lineWidth: 3,
