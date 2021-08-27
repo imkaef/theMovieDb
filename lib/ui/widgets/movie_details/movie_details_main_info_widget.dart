@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
-import 'package:the_movie_db/const/app_images.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/customProgressBarWidgetScreen.dart';
@@ -37,8 +36,8 @@ class _TopPosterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-    final backdropPath = model?.movieDetails?.backdropPath;
-    final posterPath = model?.movieDetails?.posterPath;
+    // final backdropPath = model?.movieDetails?.backdropPath;
+    // final posterPath = model?.movieDetails?.posterPath;
     return Stack(
       fit: StackFit.loose,
       children: [
@@ -58,18 +57,20 @@ class _TopPosterWidget extends StatelessWidget {
             );
           },
           blendMode: BlendMode.dstIn,
-          child: backdropPath != null
-              ? Image.network(ApiClient.imageUrl(backdropPath))
-              : SizedBox.shrink(),
+          child: model?.backDrop,
+          // child: backdropPath != null
+          //     ? Image.network(ApiClient.imageUrl(backdropPath))
+          //     : SizedBox.shrink(),
         ),
         Positioned(
           top: 20,
-          left: 15,
+          left: 20,
           bottom: 20,
           child: Container(
-            child: posterPath != null
-                ? Image.network(ApiClient.imageUrl(posterPath))
-                : SizedBox.shrink(),
+            child: model?.poster,
+            // child: posterPath != null
+            //     ? Image.network(ApiClient.imageUrl(posterPath))
+            //     : SizedBox.shrink(),
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -163,7 +164,9 @@ class _ScoreWidget extends StatelessWidget {
                     height: 40,
                     child: RadialPercentWidget(
                       child: Text(
-                        score != null ? '${(10 * score).toInt().toString()}%' : '',
+                        score != null
+                            ? '${(10 * score).toInt().toString()}%'
+                            : '',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w400,

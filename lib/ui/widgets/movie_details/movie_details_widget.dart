@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
+import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_main_info_widget.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
@@ -28,14 +29,33 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
         //если это не сделать
         title: const _TitleWidget(),
       ),
-      body: ColoredBox(
-        color: AppColors.blackBackgroundMovieDetail,
-        child: ListView(
-          children: [
-            const MovieDetailsMainInfoWidget(),
-            const MovieDetailsMainScreenCastWidget(),
-          ],
-        ),
+      // убираем боди в отдельный виджет для того чтобы не отображалист даннные
+      // пока идет загрузка экрана
+      body: const _BodyWidget(),
+    );
+  }
+}
+
+class _BodyWidget extends StatelessWidget {
+  const _BodyWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+    final movieDetails = model?.movieDetails;
+    if (model?.isloading == true)
+      return Center(
+        child: const CircularProgressIndicator(),
+      );
+    return ColoredBox(
+      color: AppColors.blackBackgroundMovieDetail,
+      child: ListView(
+        children: [
+          const MovieDetailsMainInfoWidget(),
+          const MovieDetailsMainScreenCastWidget(),
+        ],
       ),
     );
   }

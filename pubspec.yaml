@@ -29,6 +29,7 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   intl: ^0.17.0
   json_annotation: ^4.0.0
+  palette_generator: ^0.3.0
   spider: ^2.0.0
 
 dev_dependencies:
