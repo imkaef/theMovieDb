@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
@@ -284,11 +286,16 @@ class _ReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+
+    final overview = model?.movieDetails?.overview ?? '';
+    final tagLine = model?.movieDetails?.tagline ?? '';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Зачем семья, когда есть наука?',
+          tagLine,
           textAlign: TextAlign.left,
           style: TextStyle(
               color: AppColors.summaryDateMovieDetail,
@@ -307,7 +314,7 @@ class _ReviewWidget extends StatelessWidget {
           ),
         ),
         Text(
-          'В центре сюжета — школьник по имени Морти и его дедушка Рик. Морти — самый обычный мальчик, который ничем не отличается от своих сверстников. А вот его дедуля занимается необычными научными исследованиями и зачастую полностью неадекватен. Он может в любое время дня и ночи схватить внука и отправиться вместе с ним в межпространственные приключения с помощью построенной из разного хлама летающей тарелки, которая способна перемещаться сквозь временной тоннель. Каждый раз эта парочка оказывается в самых неожиданных местах и самых нелепых ситуациях.',
+          overview,
           style: TextStyle(
             fontSize: 16,
             color: AppColors.titleColorMovieDetail,
@@ -315,54 +322,127 @@ class _ReviewWidget extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 30),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Dan Harmon',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Text(
-                      'Создатель',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.titleColorMovieDetail,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Justin Roiland',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Text(
-                      'Создатель',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.titleColorMovieDetail,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
+          child: _DirectorWidget(),
         )
       ],
+    );
+  }
+}
+
+class _DirectorWidget extends StatelessWidget {
+  const _DirectorWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+
+    var crew = model?.movieDetails?.credits.crew;
+
+    //эта штука дает понять что дальше в коде модель точно не нал
+    if (crew == null || crew.isEmpty) return const SizedBox.shrink();
+    //сабЛист это подмоссив из основного массива
+    //проверка на количество крю в массиве
+    crew.sort((a, b) => b.popularity.compareTo(a.popularity));
+    // for (var cr in crew) {
+    //   print(cr.popularity);
+    // }
+    if (crew.length > 4) crew = crew.sublist(0, 4);
+    final crewWidget = crew
+        .map((employee) => Flexible(
+            flex: 2,
+            child: EmployeeWidget(vacant: employee.job, name: employee.name)))
+        .toList();
+
+    // return GridView.count(
+    //   crossAxisCount: 2,
+    //   children: crewWidget,
+    // );
+    return SizedBox(
+      height: 100,
+      width: double.infinity,
+      child: Wrap(
+        direction: Axis.horizontal,
+        children: crewWidget,
+      ),
+    );
+    // return SizedBox(
+    //   width: double.infinity,
+    //   child: Row(
+    //     children: [
+    //       Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: crewWidget,
+    //       ),
+    //     ],
+    //   ),
+    // );
+    // Column(
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: [
+    //     Row(
+    //       children: [
+    //         Column(
+    //           children: [
+    //             Text(
+    //               'Justin Roiland',
+    //               style: TextStyle(
+    //                 fontSize: 16,
+    //                 fontWeight: FontWeight.w700,
+    //               ),
+    //             ),
+    //             Text(
+    //               'Создатель',
+    //               style: TextStyle(
+    //                 fontSize: 16,
+    //                 color: AppColors.titleColorMovieDetail,
+    //               ),
+    //             )
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //   ],
+    // );
+  }
+}
+
+class EmployeeWidget extends StatelessWidget {
+  //const
+  EmployeeWidget({
+    Key? key,
+    required this.vacant,
+    required this.name,
+  }) : super(key: key);
+  final String vacant;
+  final String name;
+  @override
+  Widget build(BuildContext context) {
+    final nameStyle = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+    );
+    final creatorStyle = TextStyle(
+      fontSize: 14,
+      color: AppColors.titleColorMovieDetail,
+    );
+    return Container(
+      color: Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            vacant,
+            overflow: TextOverflow.ellipsis,
+            style: creatorStyle,
+          ),
+          Text(
+            name,
+            style: nameStyle,
+          )
+        ],
+      ),
     );
   }
 }

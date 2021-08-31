@@ -51,7 +51,8 @@ class ApiClient {
     } on ApiClientException {
       // Ессли получаем нашу ощибку описанную через if то мы её просто пробрасываем наверх
       rethrow;
-    } catch (_) {
+    } catch (e) {
+      print(e);
       // и если случилось что не наша и не сокет то это другие ошибки
       throw ApiClientException(ApiClientExceptionType.Other);
     }
@@ -232,6 +233,7 @@ class ApiClient {
       '/movie/$movieId',
       parser,
       <String, dynamic>{
+        'append_to_response': 'credits',
         'api_key': _apiKey,
         'language': locale,
       },
