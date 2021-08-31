@@ -53,18 +53,18 @@ class MovieDetailsModel extends ChangeNotifier {
     _post != null ? _poster = await _downloadImage(_post) : _poster = null;
     final _back = _movieDetails?.backdropPath;
     _back != null ? _backDrop = await _downloadImage(_back) : _backDrop = null;
-    // if (_backDrop != null) await _updatePalettes(_poster);
     _loading = false;
+    if (_backDrop == null) return;
     notifyListeners();
   }
 
   //загрузка цветта экрана
-  // _updatePalettes(Image? img) async {
-  //   final PaletteGenerator generator;
-  //   generator = await PaletteGenerator.fromImageProvider(img!.image);
-  //   color = generator.lightMutedColor != null
-  //       ? generator.lightMutedColor?.color
-  //       : PaletteColor(Colors.amber, 2);
-  // }
-  //попробывать с ключевым словом ретерн сделатьт проверку на нот налл
+  Future<Color> _updatePalettes(Image img) async {
+    final PaletteGenerator generator =
+        await PaletteGenerator.fromImageProvider(img.image);
+    return color = generator.lightMutedColor!.color;
+  }
+
+  // await PaletteGenerator.fromImageProvider(img.image);
 }
+  //попробывать с ключевым словом ретерн сделатьт проверку на нот налл

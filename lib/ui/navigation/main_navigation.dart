@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/auth/auth_model.dart';
 import 'package:the_movie_db/ui/widgets/auth/auth_widget.dart';
-import 'package:the_movie_db/ui/widgets/customProgressBarWidgetScreen.dart';
 import 'package:the_movie_db/ui/widgets/main_screen/main_screen_model.dart';
 import 'package:the_movie_db/ui/widgets/main_screen/main_screen_widget.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
