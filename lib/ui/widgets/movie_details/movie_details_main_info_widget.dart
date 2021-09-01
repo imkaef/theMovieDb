@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
+import 'package:the_movie_db/domain/entity/movie_details_credits.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/customProgressBarWidgetScreen.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
@@ -350,23 +351,23 @@ class _DirectorWidget extends StatelessWidget {
     // }
     if (crew.length > 4) crew = crew.sublist(0, 4);
     final crewWidget = crew
-        .map((employee) => Flexible(
-            flex: 2,
-            child: EmployeeWidget(vacant: employee.job, name: employee.name)))
+        .map((employee) => EmployeeWidget(
+              employee: employee,
+            ))
         .toList();
-
+    return SizedBox.shrink();
     // return GridView.count(
     //   crossAxisCount: 2,
     //   children: crewWidget,
     // );
-    return SizedBox(
-      height: 100,
-      width: double.infinity,
-      child: Wrap(
-        direction: Axis.horizontal,
-        children: crewWidget,
-      ),
-    );
+    // return SizedBox(
+    //   height: 100,
+    //   width: double.infinity,
+    //   child: Wrap(
+    //     direction: Axis.horizontal,
+    //     children: crewWidget,
+    //   ),
+    // );
     // return SizedBox(
     //   width: double.infinity,
     //   child: Row(
@@ -412,11 +413,10 @@ class EmployeeWidget extends StatelessWidget {
   //const
   EmployeeWidget({
     Key? key,
-    required this.vacant,
-    required this.name,
+    required this.employee,
   }) : super(key: key);
-  final String vacant;
-  final String name;
+
+  final Employee employee;
   @override
   Widget build(BuildContext context) {
     final nameStyle = TextStyle(
@@ -427,21 +427,25 @@ class EmployeeWidget extends StatelessWidget {
       fontSize: 14,
       color: AppColors.titleColorMovieDetail,
     );
-    return Container(
-      color: Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+    return
+        // Container(
+        //   color: Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+        //   child:
+        Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            vacant,
+            employee.job,
             overflow: TextOverflow.ellipsis,
             style: creatorStyle,
           ),
           Text(
-            name,
+            employee.name,
             style: nameStyle,
           )
         ],
+        // ),
       ),
     );
   }

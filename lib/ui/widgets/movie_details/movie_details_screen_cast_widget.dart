@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/const/app_images.dart';
+import 'package:the_movie_db/domain/api_client/api_client.dart';
+import 'package:the_movie_db/domain/entity/movie_details_credits.dart';
+import 'package:the_movie_db/domain/inherited/provider.dart';
+import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
 
 class MovieDetailsMainScreenCastWidget extends StatelessWidget {
   const MovieDetailsMainScreenCastWidget({Key? key}) : super(key: key);
@@ -24,54 +28,9 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 300,
+              height: 250,
               child: Scrollbar(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemExtent: 120,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black.withOpacity(0.2),
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(6),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Image(image: AppImages.actor),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, top: 10, right: 10),
-                              child: Text(
-                                'Margot Robbie',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                'Rick Sanchez / Morty Smith (voice), Albert Einstein (voice), Evil Rick / Evil Morty / Doofus Rick / Council of Ricks / Additional Voices (voice), Mr. Meeseeks (voice) and 7 more...',
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                ),
-                                maxLines: 10,
-                              ),
-                            ),
-                            Text('61 эпизод'),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                child: const _ActorListWidget(),
               ),
             ),
             Padding(
@@ -88,7 +47,87 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Text('data'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ActorListWidget extends StatelessWidget {
+  const _ActorListWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+    var cast = model?.movieDetails?.credits.cast;
+    if (cast == null || cast.isEmpty) return const SizedBox.shrink();
+    cast.sort((a, b) => b.popularity.compareTo(a.popularity));
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 20,
+      itemExtent: 120,
+      itemBuilder: (BuildContext context, int index) {
+        return _ActorListItemWidget(
+          actroIndex: index,
+        );
+      },
+    );
+  }
+}
+
+class _ActorListItemWidget extends StatelessWidget {
+  const _ActorListItemWidget({
+    Key? key,
+    required this.actroIndex,
+  }) : super(key: key);
+  final int actroIndex;
+  @override
+  Widget build(BuildContext context) {
+    final model = NotifierProvider.readFromModel<MovieDetailsModel>(context);
+    //палки смерти здесь потомучто модель существует, а если нет этот виджет не нарисуется
+    final actor = model!.movieDetails!.credits.cast[actroIndex];
+    final profilePath = actor.profilePath;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black.withOpacity(0.2),
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(6),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            profilePath != null
+                ? Image.network(ApiClient.imageUrl(profilePath))
+                : SizedBox.shrink(),
+            Padding(
+              padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
+              child: Text(
+                actor.name,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Text(
+                  actor.character,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(
+                    fontSize: 13,
+                  ),
+                  maxLines: 4,
+                ),
+              ),
+            ),
           ],
         ),
       ),
