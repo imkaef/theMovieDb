@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie_db/const/app_images.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
-import 'package:the_movie_db/domain/entity/movie_details_credits.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
 
@@ -28,7 +26,7 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 250,
+              height: 260,
               child: Scrollbar(
                 child: const _ActorListWidget(),
               ),
@@ -67,7 +65,7 @@ class _ActorListWidget extends StatelessWidget {
     cast.sort((a, b) => b.popularity.compareTo(a.popularity));
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 20,
+      itemCount: cast.length < 21 ? cast.length : 20,
       itemExtent: 120,
       itemBuilder: (BuildContext context, int index) {
         return _ActorListItemWidget(
