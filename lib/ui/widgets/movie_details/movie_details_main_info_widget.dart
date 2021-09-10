@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/domain/entity/movie_details_credits.dart';
@@ -155,6 +154,9 @@ class _ScoreWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
     final score = model?.movieDetails?.voteAverage;
+    final videos = model?.movieDetails?.videos.results
+        .where((video) => video.type == 'Trailer' && video.site == 'YouTube');
+    final trailerKey = videos?.isNotEmpty == true ? videos?.first.key : null;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
@@ -205,16 +207,18 @@ class _ScoreWidget extends StatelessWidget {
             height: 15,
             color: Colors.grey,
           ),
-          TextButton(
-            style: TextButton.styleFrom(padding: EdgeInsets.zero),
-            onPressed: () {},
-            child: Row(
-              children: [
-                Icon(Icons.arrow_right_sharp),
-                Text('Воспроизвести'),
-              ],
-            ),
-          ),
+          trailerKey != null
+              ? TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () => model?.onTrailerTap(context, trailerKey),
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_right_sharp),
+                      Text('Воспроизвести'),
+                    ],
+                  ),
+                )
+              : SizedBox.shrink(),
         ],
       ),
     );

@@ -77,9 +77,7 @@ class Employee {
     required this.department,
     required this.job,
   });
-
   factory Employee.fromJson(Map<String, dynamic> json) =>
       _$EmployeeFromJson(json);
-
   Map<String, dynamic> toJson() => _$EmployeeToJson(this);
 }

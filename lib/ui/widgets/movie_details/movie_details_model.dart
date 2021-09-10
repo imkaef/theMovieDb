@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/entity/movie_details.dart';
+import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 
 class MovieDetailsModel extends ChangeNotifier {
   final _apiClient = ApiClient();
@@ -63,6 +64,11 @@ class MovieDetailsModel extends ChangeNotifier {
     final PaletteGenerator generator =
         await PaletteGenerator.fromImageProvider(img.image);
     return color = generator.lightMutedColor!.color;
+  }
+
+  void onTrailerTap(BuildContext context, String trailerKey) {
+    Navigator.of(context)
+        .pushNamed(MainNavigationRouteNames.movieTrailer, arguments: trailerKey);
   }
 
   // await PaletteGenerator.fromImageProvider(img.image);
