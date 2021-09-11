@@ -82,6 +82,19 @@ class _TopPosterWidget extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            top: 5,
+            right: 5,
+            child: IconButton(
+              icon: Icon(
+                model?.isFavorite == true
+                    ? Icons.favorite
+                    : Icons.favorite_border_sharp,
+                color: Colors.white,
+              ),
+              onPressed: () => model?.onFavoriteTap(),
+            ),
+          ),
         ],
       ),
     );

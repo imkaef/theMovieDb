@@ -1,11 +1,24 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
 import 'package:the_movie_db/domain/entity/movie_details.dart';
 import 'package:the_movie_db/domain/entity/popular_movie_response.dart';
 
 // перечисление ошибок
 enum ApiClientExceptionType { Network, Auth, Other }
+enum MediaType { movie, tv }
+
+extension MediaTypeAsString on MediaType {
+  String asString() {
+    switch (this) {
+      case MediaType.movie:
+        return 'movie';
+      case MediaType.tv:
+        return 'tv';
+    }
+  }
+}
 
 //Создаем класс ошибок для этого имплементируем класс Exception
 // Всего определили 3 типа ошибок Сервер, сеть на устройстве, ошибки с сервера не верный логин или пароль
@@ -164,6 +177,25 @@ class ApiClient {
     return result;
   }
 
+  Future<int> getAccountInfo(
+    String sessionId,
+  ) async {
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = jsonMap['id'] as int;
+      return response;
+    };
+    final result = _get(
+      '/account',
+      parser,
+      <String, dynamic>{
+        'api_key': _apiKey,
+        'session_id': sessionId,
+      },
+    );
+    return result;
+  }
+
   void _validateResponse(HttpClientResponse responce, dynamic json) {
     if (responce.statusCode == 401) {
       final dynamic status = json['status_code'];
@@ -238,6 +270,51 @@ class ApiClient {
         'language': locale,
       },
     );
+    return result;
+  }
+
+//есть ли у фильма отметка мне нравится
+  Future<bool> isFavorite(
+    int movieId,
+    String sessionId,
+  ) async {
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = jsonMap['favorite'] as bool;
+      return response;
+    };
+    final result = _get(
+      '/movie/$movieId/account_states',
+      parser,
+      <String, dynamic>{
+        'api_key': _apiKey,
+        'session_id': sessionId,
+      },
+    );
+    return result;
+  }
+
+// указываем в инам подсказку для прогера для того кокой медиа контент подставить
+  Future<String> markIsFavorite({
+    required int accountId,
+    required String sessionId,
+    required MediaType mediaType,
+    required int mediaId,
+    required bool isFavorite,
+  }) async {
+    final parser = (dynamic json) {
+      return 'sd';
+    };
+    final parametrs = <String, dynamic>{
+      'media_type': mediaType.asString(),
+      'media_id': mediaId.toString(),
+      'favorite': isFavorite.toString(),
+    };
+    final result = _post(
+        '/account/$accountId/favorite', parametrs, parser, <String, dynamic>{
+      'api_key': _apiKey,
+      'session_id': sessionId,
+    });
     return result;
   }
 }

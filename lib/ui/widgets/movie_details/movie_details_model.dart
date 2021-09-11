@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
+import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
 import 'package:the_movie_db/domain/entity/movie_details.dart';
 import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 
@@ -16,6 +17,12 @@ class MovieDetailsModel extends ChangeNotifier {
   Image? _backDrop = null;
   bool _loading = false;
   late Color color;
+
+ late bool _isFavorite;
+
+  bool get isFavorite => _isFavorite;
+
+  final _sessionDataProvider = SessionDataProvider();
 
   MovieDetailsModel(
     this.movieId,
@@ -50,6 +57,11 @@ class MovieDetailsModel extends ChangeNotifier {
     //пропустил авайт этого надо дождаться
 
     _movieDetails = await _apiClient.movieDetails(movieId, _locale);
+    final sessionId = await SessionDataProvider().getSessionId();
+    if (sessionId != null) {
+      _isFavorite = await _apiClient.isFavorite(movieId, sessionId);
+    }
+
     final _post = _movieDetails?.posterPath;
     _post != null ? _poster = await _downloadImage(_post) : _poster = null;
     final _back = _movieDetails?.backdropPath;
@@ -67,8 +79,26 @@ class MovieDetailsModel extends ChangeNotifier {
   }
 
   void onTrailerTap(BuildContext context, String trailerKey) {
-    Navigator.of(context)
-        .pushNamed(MainNavigationRouteNames.movieTrailer, arguments: trailerKey);
+    Navigator.of(context).pushNamed(MainNavigationRouteNames.movieTrailer,
+        arguments: trailerKey);
+  }
+
+  Future<void> onFavoriteTap() async {
+    final sessionId = await _sessionDataProvider.getSessionId();
+    final accountId = await _sessionDataProvider.getAccountId();
+    final contentId = movieDetails?.id;
+    if (sessionId == null || accountId == null || contentId == null) return;
+
+    final newFavoriteValue = !isFavorite;
+    _apiClient.markIsFavorite(
+        accountId: accountId,
+        sessionId: sessionId,
+        mediaType: MediaType.movie,
+        mediaId: contentId,
+        isFavorite: newFavoriteValue);
+
+    _isFavorite = newFavoriteValue;
+    notifyListeners();
   }
 
   // await PaletteGenerator.fromImageProvider(img.image);

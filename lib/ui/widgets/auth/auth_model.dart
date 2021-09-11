@@ -36,9 +36,11 @@ class AuthModel extends ChangeNotifier {
     _errorMessage = null;
     notifyListeners();
     String? sessionId;
+    int? accountId;
     try {
       sessionId = await _apiClient.auth(username: login, password: password);
-      print('$sessionId');
+      accountId = await _apiClient.getAccountInfo(sessionId);
+      // print('$sessionId');
     } on ApiClientException catch (e) {
       switch (e.type) {
         case ApiClientExceptionType.Network:
@@ -60,12 +62,13 @@ class AuthModel extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    if (sessionId == null) {
-      _errorMessage = 'Не получен id сессии';
+    if (sessionId == null || accountId == null) {
+      _errorMessage = 'Не получен id сессии или id аккаунта';
       notifyListeners();
       return;
     }
     await _sessionDataProvider.setSessionId(sessionId);
+    await _sessionDataProvider.setAccountId(accountId);
 
     Navigator.of(context)
         .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
