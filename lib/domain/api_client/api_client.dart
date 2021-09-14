@@ -303,12 +303,15 @@ class ApiClient {
     required bool isFavorite,
   }) async {
     final parser = (dynamic json) {
-      return 'sd';
+      final jsonMap = json as Map<String, dynamic>;
+      final message = jsonMap['status_message'] as String;
+      print(message);
+      return message;
     };
     final parametrs = <String, dynamic>{
       'media_type': mediaType.asString(),
       'media_id': mediaId.toString(),
-      'favorite': isFavorite.toString(),
+      'favorite': isFavorite,
     };
     final result = _post(
         '/account/$accountId/favorite', parametrs, parser, <String, dynamic>{

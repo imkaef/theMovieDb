@@ -89,15 +89,14 @@ class MovieDetailsModel extends ChangeNotifier {
     final contentId = movieDetails?.id;
     if (sessionId == null || accountId == null || contentId == null) return;
 
-    final newFavoriteValue = !isFavorite;
     _apiClient.markIsFavorite(
         accountId: accountId,
         sessionId: sessionId,
         mediaType: MediaType.movie,
         mediaId: contentId,
-        isFavorite: newFavoriteValue);
+        isFavorite: !isFavorite);
 
-    _isFavorite = newFavoriteValue;
+    _isFavorite = !_isFavorite;
     notifyListeners();
   }
 
