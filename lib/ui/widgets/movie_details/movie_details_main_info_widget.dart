@@ -38,6 +38,8 @@ class _TopPosterWidget extends StatelessWidget {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
     // final backdropPath = model?.movieDetails?.backdropPath;
     // final posterPath = model?.movieDetails?.posterPath;
+    if (model?.backDrop == null || model?.getColor == null)
+      return SizedBox.shrink();
     return AspectRatio(
       aspectRatio: 390 / 220,
       //аспект ратио нужен чтобы установить соотношение с которым будет
@@ -51,7 +53,7 @@ class _TopPosterWidget extends StatelessWidget {
             shaderCallback: (rect) {
               return LinearGradient(
                 colors: [
-                  AppColors.blackBackgroundMovieDetail,
+                  Colors.black,
                   Colors.transparent,
                 ],
                 stops: [0.5, 0.8],
@@ -96,29 +98,6 @@ class _TopPosterWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class LinearGradientWidget extends StatelessWidget {
-  const LinearGradientWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColors.blackBackgroundMovieDetail,
-            Colors.transparent,
-          ],
-          stops: [0.2, 0.7],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
       ),
     );
   }
@@ -311,15 +290,17 @@ class _ReviewWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          tagLine,
-          textAlign: TextAlign.left,
-          style: TextStyle(
-              color: AppColors.summaryDateMovieDetail,
-              fontSize: 18,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.w400),
-        ),
+        tagLine == ''
+            ? Container()
+            : Text(
+                tagLine,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: AppColors.summaryDateMovieDetail,
+                    fontSize: 18,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w400),
+              ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Text(
@@ -330,13 +311,15 @@ class _ReviewWidget extends StatelessWidget {
                 fontWeight: FontWeight.w600),
           ),
         ),
-        Text(
-          overview,
-          style: TextStyle(
-            fontSize: 16,
-            color: AppColors.titleColorMovieDetail,
-          ),
-        ),
+        overview == ''
+            ? SizedBox.shrink()
+            : Text(
+                overview,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColors.titleColorMovieDetail,
+                ),
+              ),
         Padding(
           padding: const EdgeInsets.only(top: 30),
           child: _DirectorWidget(),

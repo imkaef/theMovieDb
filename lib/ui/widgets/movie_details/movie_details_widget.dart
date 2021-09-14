@@ -43,13 +43,15 @@ class _BodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-   // final movieDetails = model?.movieDetails;
-    if (model?.isloading == true)
+    // final movieDetails = model?.movieDetails;
+    // if (model?.backDrop == null || model?.getColor == null)
+    // return SizedBox.shrink();
+    if (model?.isloading == true || model?.getColor == null)
       return Center(
         child: const CircularProgressIndicator(),
       );
     return ColoredBox(
-      color: AppColors.blackBackgroundMovieDetail,
+      color: model?.getColor != null ? model!.getColor : Colors.white,
       child: ListView(
         children: [
           const MovieDetailsMainInfoWidget(),

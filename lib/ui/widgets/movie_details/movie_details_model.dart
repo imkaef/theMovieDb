@@ -4,6 +4,7 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
 import 'package:the_movie_db/domain/entity/movie_details.dart';
+import 'package:the_movie_db/theme/app_colors.dart';
 import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 
 class MovieDetailsModel extends ChangeNotifier {
@@ -16,9 +17,9 @@ class MovieDetailsModel extends ChangeNotifier {
   Image? _poster = null;
   Image? _backDrop = null;
   bool _loading = false;
-  late Color color;
+  Color _color = Colors.lime;
 
- late bool _isFavorite;
+  late bool _isFavorite;
 
   bool get isFavorite => _isFavorite;
 
@@ -32,6 +33,7 @@ class MovieDetailsModel extends ChangeNotifier {
   Image? get poster => _poster;
   Image? get backDrop => _backDrop;
   bool get isloading => _loading;
+  Color get getColor => _color;
 
   Future<void> setupLocale(BuildContext context) async {
     _loading = true;
@@ -62,20 +64,24 @@ class MovieDetailsModel extends ChangeNotifier {
       _isFavorite = await _apiClient.isFavorite(movieId, sessionId);
     }
 
-    final _post = _movieDetails?.posterPath;
-    _post != null ? _poster = await _downloadImage(_post) : _poster = null;
     final _back = _movieDetails?.backdropPath;
     _back != null ? _backDrop = await _downloadImage(_back) : _backDrop = null;
+    _color = await createColor(backDrop);
+    final _front = _movieDetails?.posterPath;
+    _front != null ? _poster = await _downloadImage(_front) : _poster = null;
+    _color = await createColor(poster);
     _loading = false;
-    if (_backDrop == null) return;
     notifyListeners();
   }
 
   //загрузка цветта экрана
-  Future<Color> _updatePalettes(Image img) async {
-    final PaletteGenerator generator =
-        await PaletteGenerator.fromImageProvider(img.image);
-    return color = generator.lightMutedColor!.color;
+  Future<Color> createColor(Image? img) async {
+    PaletteGenerator generator;
+    if (img == null) return Colors.amber;
+    generator = await PaletteGenerator.fromImageProvider(img.image);
+    if (generator.dominantColor?.color != null)
+      return generator.dominantColor!.color;
+    return Colors.blueAccent;
   }
 
   void onTrailerTap(BuildContext context, String trailerKey) {

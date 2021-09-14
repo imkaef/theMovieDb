@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
 import 'package:the_movie_db/domain/entity/movie_details.dart';
 import 'package:the_movie_db/domain/entity/popular_movie_response.dart';
 
