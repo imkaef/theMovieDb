@@ -38,8 +38,7 @@ class _TopPosterWidget extends StatelessWidget {
     final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
     // final backdropPath = model?.movieDetails?.backdropPath;
     // final posterPath = model?.movieDetails?.posterPath;
-    if (model?.backDrop == null || model?.getColor == null)
-      return SizedBox.shrink();
+    if (model?.backDrop == null) return SizedBox.shrink();
     return AspectRatio(
       aspectRatio: 390 / 220,
       //аспект ратио нужен чтобы установить соотношение с которым будет
@@ -92,7 +91,9 @@ class _TopPosterWidget extends StatelessWidget {
                 model?.isFavorite == true
                     ? Icons.favorite
                     : Icons.favorite_border_sharp,
-                color: Colors.white,
+                // color: Colors.lime,
+                color: model?.getColorList.vibrantColor?.color,
+                size: 30,
               ),
               onPressed: () => model?.onFavoriteTap(),
             ),
@@ -120,14 +121,17 @@ class _MovieNameWidget extends StatelessWidget {
             TextSpan(
               text: title,
               style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 17,
-                  color: AppColors.titleColorMovieDetail),
+                fontWeight: FontWeight.w800,
+                fontSize: 17,
+                // color: AppColors.titleColorMovieDetail),
+                color: model?.getColorList.dominantColor?.bodyTextColor,
+              ),
             ),
             TextSpan(
                 text: year,
                 style: TextStyle(
-                    color: AppColors.summaryDateMovieDetail,
+                    // color: AppColors.summaryDateMovieDetail,
+                    color: model?.getColorList.dominantColor?.titleTextColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 14)),
           ],
@@ -187,9 +191,10 @@ class _ScoreWidget extends StatelessWidget {
 счёт''',
                   maxLines: 2,
                   style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: model?.getColorList.dominantColor?.bodyTextColor,
+                  ),
                 ),
               ],
             ),
@@ -205,8 +210,17 @@ class _ScoreWidget extends StatelessWidget {
                   onPressed: () => model?.onTrailerTap(context, trailerKey),
                   child: Row(
                     children: [
-                      Icon(Icons.arrow_right_sharp),
-                      Text('Воспроизвести'),
+                      Icon(
+                        Icons.arrow_right_sharp,
+                        color: model?.getColorList.dominantColor?.bodyTextColor,
+                      ),
+                      Text(
+                        'Воспроизвести',
+                        style: TextStyle(
+                          color:
+                              model?.getColorList.dominantColor?.bodyTextColor,
+                        ),
+                      ),
                     ],
                   ),
                 )
@@ -258,15 +272,15 @@ class _SummeryWidget extends StatelessWidget {
 
     return Center(
       child: ColoredBox(
-        color: const Color.fromRGBO(22, 21, 25, 1.0),
+        color: model.getColorList.dominantColor?.bodyTextColor ?? Colors.grey,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           child: Text(
             summary.join(' '),
             maxLines: 3,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: model.getColorList.dominantColor?.color,
               fontSize: 16,
               fontWeight: FontWeight.w400,
             ),
@@ -296,7 +310,7 @@ class _ReviewWidget extends StatelessWidget {
                 tagLine,
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                    color: AppColors.summaryDateMovieDetail,
+                    color: model?.getColorList.darkVibrantColor?.bodyTextColor,
                     fontSize: 18,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w400),
@@ -306,7 +320,7 @@ class _ReviewWidget extends StatelessWidget {
           child: Text(
             'Обзор',
             style: TextStyle(
-                color: AppColors.titleColorMovieDetail,
+                color: model?.getColorList.darkVibrantColor?.bodyTextColor,
                 fontSize: 21,
                 fontWeight: FontWeight.w600),
           ),
@@ -317,7 +331,7 @@ class _ReviewWidget extends StatelessWidget {
                 overview,
                 style: TextStyle(
                   fontSize: 16,
-                  color: AppColors.titleColorMovieDetail,
+                  color: model?.getColorList.darkVibrantColor?.bodyTextColor,
                 ),
               ),
         Padding(

@@ -46,12 +46,14 @@ class _BodyWidget extends StatelessWidget {
     // final movieDetails = model?.movieDetails;
     // if (model?.backDrop == null || model?.getColor == null)
     // return SizedBox.shrink();
-    if (model?.isloading == true || model?.getColor == null)
+    if (model?.isloading == true || model?.getColorList == null)
       return Center(
         child: const CircularProgressIndicator(),
       );
     return ColoredBox(
-      color: model?.getColor != null ? model!.getColor : Colors.white,
+      color: model?.getColorList != null
+          ? model!.getColorList.dominantColor!.color
+          : Colors.white,
       child: ListView(
         children: [
           const MovieDetailsMainInfoWidget(),

@@ -17,8 +17,8 @@ class MovieDetailsModel extends ChangeNotifier {
   Image? _poster = null;
   Image? _backDrop = null;
   bool _loading = false;
-  Color _color = Colors.lime;
-
+  //Color _color = Colors.lime;
+  late PaletteGenerator _colorsList;
   late bool _isFavorite;
 
   bool get isFavorite => _isFavorite;
@@ -33,7 +33,7 @@ class MovieDetailsModel extends ChangeNotifier {
   Image? get poster => _poster;
   Image? get backDrop => _backDrop;
   bool get isloading => _loading;
-  Color get getColor => _color;
+  PaletteGenerator get getColorList => _colorsList;
 
   Future<void> setupLocale(BuildContext context) async {
     _loading = true;
@@ -66,22 +66,23 @@ class MovieDetailsModel extends ChangeNotifier {
 
     final _back = _movieDetails?.backdropPath;
     _back != null ? _backDrop = await _downloadImage(_back) : _backDrop = null;
-    _color = await createColor(backDrop);
     final _front = _movieDetails?.posterPath;
     _front != null ? _poster = await _downloadImage(_front) : _poster = null;
-    _color = await createColor(poster);
+    await createColor(poster);
     _loading = false;
     notifyListeners();
   }
 
   //загрузка цветта экрана
-  Future<Color> createColor(Image? img) async {
+  Future<void> createColor(Image? img) async {
     PaletteGenerator generator;
-    if (img == null) return Colors.amber;
+    if (img == null) return;
     generator = await PaletteGenerator.fromImageProvider(img.image);
-    if (generator.dominantColor?.color != null)
-      return generator.dominantColor!.color;
-    return Colors.blueAccent;
+    if (generator.dominantColor?.color != null) {
+      _colorsList = generator;
+      return;
+    }
+    return;
   }
 
   void onTrailerTap(BuildContext context, String trailerKey) {
