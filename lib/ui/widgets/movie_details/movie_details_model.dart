@@ -4,12 +4,11 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
 import 'package:the_movie_db/domain/entity/movie_details.dart';
-import 'package:the_movie_db/theme/app_colors.dart';
 import 'package:the_movie_db/ui/navigation/main_navigation.dart';
 
 class MovieDetailsModel extends ChangeNotifier {
   final _apiClient = ApiClient();
-
+  var _firstOpen = true;
   final int movieId;
   MovieDetails? _movieDetails;
   String _locale = '';
@@ -24,10 +23,13 @@ class MovieDetailsModel extends ChangeNotifier {
   bool get isFavorite => _isFavorite;
 
   final _sessionDataProvider = SessionDataProvider();
-
   MovieDetailsModel(
     this.movieId,
   );
+  @override
+  String toString() {
+    return '${_firstOpen.toString()}  $movieId';
+  }
 
   MovieDetails? get movieDetails => _movieDetails;
   Image? get poster => _poster;
@@ -36,12 +38,16 @@ class MovieDetailsModel extends ChangeNotifier {
   PaletteGenerator get getColorList => _colorsList;
 
   Future<void> setupLocale(BuildContext context) async {
+    //Если модель открыта впервый раз то надо делать загрузку
+    // А если модель существует то в ней есть данные и загружать данные из инета снова не надо
+    if (_firstOpen != true) return;
     _loading = true;
     final locale = Localizations.localeOf(context).toLanguageTag();
     if (locale == _locale) return;
     _locale = locale;
     _dateFormat = DateFormat.yMMMMd(locale);
     await loadDetails();
+    _firstOpen = false;
   }
 
   Future<Image> _downloadImage(String src) async {
@@ -107,6 +113,13 @@ class MovieDetailsModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    print('${movieDetails?.title} Сработал диспоуз и модель удалилась');
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   // await PaletteGenerator.fromImageProvider(img.image);
 }
-  //попробывать с ключевым словом ретерн сделатьт проверку на нот налл
+//попробывать с ключевым словом ретерн сделатьт проверку на нот налл

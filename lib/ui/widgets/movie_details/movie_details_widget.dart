@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_main_info_widget.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';

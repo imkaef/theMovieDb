@@ -19,6 +19,9 @@ abstract class MainNavigationRouteNames {
 
 // утащим роуты для удобного использования в отдельный файл
 class MainNavigation {
+  // Сюда сохраняем созданные модельки
+  Map<int, MovieDetailsModel> modelMap = {};
+
   String initialRoute(bool isAuth) => isAuth
       ? MainNavigationRouteNames.mainScreen
       : MainNavigationRouteNames.auth;
@@ -34,16 +37,29 @@ class MainNavigation {
 
     //MainNavigationRouteNames.example: (context) => CustomProgressBarWidget(),
   };
-
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case MainNavigationRouteNames.movieDetails:
         final arguments = settings.arguments;
         final movieId = arguments is int ? arguments : 0;
+        if (modelMap.isNotEmpty == true ||
+            modelMap.containsKey(movieId) == false)
+          modelMap.addAll({movieId: MovieDetailsModel(movieId)});
+        print("Values");
+        for (var value in modelMap.values) {
+          print(value.movieDetails?.title);
+        }
         return MaterialPageRoute(
-            builder: (context) => NotifierProvider(
-                create: () => MovieDetailsModel(movieId),
-                child: MovieDetailsWidget()));
+          builder: (context) => NotifierProvider(
+            create: () => modelMap[movieId] as MovieDetailsModel,
+            isManagingModel: false,
+            // create: () => MovieDetailsModel(movieId),
+            // create: () => modelMap[movieId] != null
+            //     ? modelMap[movieId]
+            //     : MovieDetailsModel(movieId),
+            child: MovieDetailsWidget(),
+          ),
+        );
       case MainNavigationRouteNames.movieTrailer:
         final arguments = settings.arguments;
         final youTubeKey = arguments is String ? arguments : '';
