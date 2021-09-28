@@ -26,6 +26,8 @@ class MainNavigation {
 //631843
   Map<int, MovieDetailsModel> modelMap = {};
 
+  var movieListCash = MovieListCash();
+
   String initialRoute(bool isAuth) => isAuth
       ? MainNavigationRouteNames.mainScreen
       : MainNavigationRouteNames.auth;
@@ -46,17 +48,18 @@ class MainNavigation {
       case MainNavigationRouteNames.movieDetails:
         final arguments = settings.arguments;
         final movieId = arguments is int ? arguments : 0;
-        if (modelMap.isEmpty ||
-            !modelMap.containsKey(movieId)) {
-          modelMap.addAll({movieId: MovieDetailsModel(movieId)});
-        }
-        print("Values");
-        for (var value in modelMap.values) {
-          print(value.movieDetails?.title);
-        }
+        //movieListCash.checkMovie(id: movieId);
+        // if (modelMap.isEmpty || !modelMap.containsKey(movieId)) {
+        //   modelMap.addAll({movieId: MovieDetailsModel(movieId)});
+        // }
+        // print("Values");
+        // for (var value in modelMap.values) {
+        //   print(value.movieDetails?.title);
+        // }
         return MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider.value(
-            value: modelMap[movieId],
+            value: movieListCash.checkMovie(id: movieId),
+            // value: modelMap[movieId],
             // create: () => modelMap[movieId] as MovieDetailsModel,
             //  isManagingModel: false,
             // create: () => MovieDetailsModel(movieId),
@@ -76,5 +79,23 @@ class MainNavigation {
         const widget = Text('Navigation error');
         return MaterialPageRoute(builder: (context) => widget);
     }
+  }
+}
+
+//Подумать куда убрать отсюда этот класс ему тут не место
+class MovieListCash {
+  MovieListCash() {
+    //print('asd');
+  }
+  Map<int, MovieDetailsModel> modelMap = {};
+  void addMovie(Map<int, MovieDetailsModel> movie) {
+    modelMap.addAll(movie);
+  }
+
+  MovieDetailsModel checkMovie({required int id}) {
+    if (modelMap.isEmpty || !modelMap.containsKey(id)) {
+      addMovie({id: MovieDetailsModel(id)});
+    }
+    return modelMap[id]!;
   }
 }
