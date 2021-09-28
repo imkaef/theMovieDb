@@ -21,9 +21,11 @@ abstract class MainNavigationRouteNames {
 // утащим роуты для удобного использования в отдельный файл
 class MainNavigation {
   // Сюда сохраняем созданные модельки
-  Map<int, MovieDetailsModel> modelMap = {631843: MovieDetailsModel(631843)};
+  // Map<int, MovieDetailsModel> modelMap = {631843: MovieDetailsModel(631843)};
   //  {movieId: MovieDetailsModel(movieId)};
 //631843
+  Map<int, MovieDetailsModel> modelMap = {};
+
   String initialRoute(bool isAuth) => isAuth
       ? MainNavigationRouteNames.mainScreen
       : MainNavigationRouteNames.auth;
@@ -44,9 +46,10 @@ class MainNavigation {
       case MainNavigationRouteNames.movieDetails:
         final arguments = settings.arguments;
         final movieId = arguments is int ? arguments : 0;
-        if (modelMap.isNotEmpty == true ||
-            modelMap.containsKey(movieId) == false)
+        if (modelMap.isEmpty ||
+            !modelMap.containsKey(movieId)) {
           modelMap.addAll({movieId: MovieDetailsModel(movieId)});
+        }
         print("Values");
         for (var value in modelMap.values) {
           print(value.movieDetails?.title);
