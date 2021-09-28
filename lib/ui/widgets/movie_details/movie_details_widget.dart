@@ -49,17 +49,23 @@ class _BodyWidget extends StatelessWidget {
     // return SizedBox.shrink();
     if (model.isloading == true || model.getColorList == null)
       return Center(
-        child: const CircularProgressIndicator(),
+        child: model.errorMessage != null
+            ? const CircularProgressIndicator()
+            : _ErrorMessageWidget(),
       );
     return ColoredBox(
       color: model.getColorList != null
           ? model.getColorList.dominantColor!.color
           : Colors.white,
-      child: ListView(
-        children: [
-          const MovieDetailsMainInfoWidget(),
-          const MovieDetailsMainScreenCastWidget(),
-        ],
+      child: RefreshIndicator(
+        child: ListView(
+          children: [
+            const _ErrorMessageWidget(),
+            const MovieDetailsMainInfoWidget(),
+            const MovieDetailsMainScreenCastWidget(),
+          ],
+        ),
+        onRefresh: () => model.refresh(context),
       ),
     );
   }
@@ -75,7 +81,23 @@ class _TitleWidget extends StatelessWidget {
 // а так как виджет перенесен отдельно аппбар и скаффолд перезагружаться не Будут
   @override
   Widget build(BuildContext context) {
-       final model = context.watch<MovieDetailsModel>();
+    final model = context.watch<MovieDetailsModel>();
     return Text(model.movieDetails?.title ?? 'Загрузка...');
+  }
+}
+
+class _ErrorMessageWidget extends StatelessWidget {
+  const _ErrorMessageWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final errorMessage = context.watch<MovieDetailsModel>().errorMessage;
+    if (errorMessage == null) return const SizedBox.shrink();
+    return Center(
+      child:
+          Text(errorMessage, style: TextStyle(color: Colors.red, fontSize: 17)),
+    );
   }
 }

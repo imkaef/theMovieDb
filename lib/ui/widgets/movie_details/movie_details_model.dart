@@ -22,6 +22,9 @@ class MovieDetailsModel extends ChangeNotifier {
 
   bool get isFavorite => _isFavorite;
 
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
+
   final _sessionDataProvider = SessionDataProvider();
   MovieDetailsModel(
     this.movieId,
@@ -36,19 +39,40 @@ class MovieDetailsModel extends ChangeNotifier {
   Image? get backDrop => _backDrop;
   bool get isloading => _loading;
   PaletteGenerator get getColorList => _colorsList;
+  Future<void> refresh(BuildContext context) async {
+    _firstOpen = true;
+    await setupLocale(context);
+  }
 
   Future<void> setupLocale(BuildContext context) async {
-    print('Movie Details Create');
+    print('setupLocale');
     //Если модель открыта впервый раз то надо делать загрузку
     // А если модель существует то в ней есть данные и загружать данные из инета снова не надо
     if (_firstOpen == true) {
-      _loading = true;
-      final locale = Localizations.localeOf(context).toLanguageTag();
-      if (locale == _locale) return;
-      _locale = locale;
-      _dateFormat = DateFormat.yMMMMd(locale);
-      await loadDetails();
-      _firstOpen = false;
+      try {
+        _loading = true;
+        final locale = Localizations.localeOf(context).toLanguageTag();
+        //  if (locale == _locale) return;
+        _locale = locale;
+        _dateFormat = DateFormat.yMMMMd(locale);
+        await loadDetails();
+        _firstOpen = false;
+        // print('$sessionId');
+      } on ApiClientException catch (e) {
+        switch (e.type) {
+          case ApiClientExceptionType.Network:
+            _errorMessage = 'Ошибка сети. Проверьте интеренет соединение';
+            break;
+          case ApiClientExceptionType.Auth:
+            _errorMessage = 'Неверный логин или пароль';
+
+            break;
+          case ApiClientExceptionType.Other:
+            _errorMessage = 'Ошибка сервера. Повторите запрос';
+            break;
+        }
+        print(_errorMessage);
+      }
     }
   }
 
@@ -78,6 +102,7 @@ class MovieDetailsModel extends ChangeNotifier {
     _front != null ? _poster = await _downloadImage(_front) : _poster = null;
     await createColor(poster);
     _loading = false;
+    _errorMessage = null;
     notifyListeners();
   }
 
