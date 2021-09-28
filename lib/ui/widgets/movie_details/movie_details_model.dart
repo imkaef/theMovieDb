@@ -38,16 +38,18 @@ class MovieDetailsModel extends ChangeNotifier {
   PaletteGenerator get getColorList => _colorsList;
 
   Future<void> setupLocale(BuildContext context) async {
+    print('Movie Details Create');
     //Если модель открыта впервый раз то надо делать загрузку
     // А если модель существует то в ней есть данные и загружать данные из инета снова не надо
-    if (_firstOpen != true) return;
-    _loading = true;
-    final locale = Localizations.localeOf(context).toLanguageTag();
-    if (locale == _locale) return;
-    _locale = locale;
-    _dateFormat = DateFormat.yMMMMd(locale);
-    await loadDetails();
-    _firstOpen = false;
+    if (_firstOpen == true) {
+      _loading = true;
+      final locale = Localizations.localeOf(context).toLanguageTag();
+      if (locale == _locale) return;
+      _locale = locale;
+      _dateFormat = DateFormat.yMMMMd(locale);
+      await loadDetails();
+      _firstOpen = false;
+    }
   }
 
   Future<Image> _downloadImage(String src) async {

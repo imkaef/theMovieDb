@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/domain/entity/movie_details_credits.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
@@ -35,10 +36,10 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+   final model = context.watch<MovieDetailsModel>();
     // final backdropPath = model?.movieDetails?.backdropPath;
     // final posterPath = model?.movieDetails?.posterPath;
-    if (model?.backDrop == null) return SizedBox.shrink();
+    if (model.backDrop == null) return SizedBox.shrink();
     return AspectRatio(
       aspectRatio: 390 / 220,
       //аспект ратио нужен чтобы установить соотношение с которым будет
@@ -63,7 +64,7 @@ class _TopPosterWidget extends StatelessWidget {
               );
             },
             blendMode: BlendMode.dstIn,
-            child: model?.backDrop,
+            child: model.backDrop,
             // child: backdropPath != null
             //     ? Image.network(ApiClient.imageUrl(backdropPath))
             //     : SizedBox.shrink(),
@@ -73,7 +74,7 @@ class _TopPosterWidget extends StatelessWidget {
             left: 20,
             bottom: 20,
             child: Container(
-              child: model?.poster,
+              child: model.poster,
               // child: posterPath != null
               //     ? Image.network(ApiClient.imageUrl(posterPath))
               //     : SizedBox.shrink(),
@@ -88,14 +89,14 @@ class _TopPosterWidget extends StatelessWidget {
             right: 5,
             child: IconButton(
               icon: Icon(
-                model?.isFavorite == true
+                model.isFavorite == true
                     ? Icons.favorite
                     : Icons.favorite_border_sharp,
                 // color: Colors.lime,
-                color: model?.getColorList.vibrantColor?.color,
+                color: model.getColorList.vibrantColor?.color,
                 size: 30,
               ),
-              onPressed: () => model?.onFavoriteTap(),
+              onPressed: () => model.onFavoriteTap(),
             ),
           ),
         ],
@@ -109,9 +110,9 @@ class _MovieNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-    final title = model?.movieDetails?.originalTitle;
-    var year = model?.movieDetails?.releaseDate?.year.toString();
+      final model = context.watch<MovieDetailsModel>();
+    final title = model.movieDetails?.originalTitle;
+    var year = model.movieDetails?.releaseDate?.year.toString();
     year = year != null ? ' ($year)' : 'Неизвестный год';
     return Center(
       child: RichText(
@@ -124,14 +125,14 @@ class _MovieNameWidget extends StatelessWidget {
                 fontWeight: FontWeight.w800,
                 fontSize: 17,
                 // color: AppColors.titleColorMovieDetail),
-                color: model?.getColorList.dominantColor?.bodyTextColor,
+                color: model.getColorList.dominantColor?.bodyTextColor,
               ),
             ),
             TextSpan(
                 text: year,
                 style: TextStyle(
                     // color: AppColors.summaryDateMovieDetail,
-                    color: model?.getColorList.dominantColor?.titleTextColor,
+                    color: model.getColorList.dominantColor?.titleTextColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 14)),
           ],
@@ -148,9 +149,9 @@ class _ScoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-    final score = model?.movieDetails?.voteAverage;
-    final videos = model?.movieDetails?.videos.results
+    final model = context.watch<MovieDetailsModel>();
+    final score = model.movieDetails?.voteAverage;
+    final videos = model.movieDetails?.videos.results
         .where((video) => video.type == 'Trailer' && video.site == 'YouTube');
     final trailerKey = videos?.isNotEmpty == true ? videos?.first.key : null;
     return Padding(
@@ -193,7 +194,7 @@ class _ScoreWidget extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
-                    color: model?.getColorList.dominantColor?.bodyTextColor,
+                    color: model.getColorList.dominantColor?.bodyTextColor,
                   ),
                 ),
               ],
@@ -207,18 +208,18 @@ class _ScoreWidget extends StatelessWidget {
           trailerKey != null
               ? TextButton(
                   style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                  onPressed: () => model?.onTrailerTap(context, trailerKey),
+                  onPressed: () => model.onTrailerTap(context, trailerKey),
                   child: Row(
                     children: [
                       Icon(
                         Icons.arrow_right_sharp,
-                        color: model?.getColorList.dominantColor?.bodyTextColor,
+                        color: model.getColorList.dominantColor?.bodyTextColor,
                       ),
                       Text(
                         'Воспроизвести',
                         style: TextStyle(
                           color:
-                              model?.getColorList.dominantColor?.bodyTextColor,
+                              model.getColorList.dominantColor?.bodyTextColor,
                         ),
                       ),
                     ],
@@ -236,7 +237,7 @@ class _SummeryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+     final model = context.watch<MovieDetailsModel>();
     if (model == null) return const SizedBox.shrink();
     //собираем массив из слов которые надо вписать
     var summary = <String>[];
@@ -296,10 +297,10 @@ class _ReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+     final model = context.watch<MovieDetailsModel>();
 
-    final overview = model?.movieDetails?.overview ?? '';
-    final tagLine = model?.movieDetails?.tagline ?? '';
+    final overview = model.movieDetails?.overview ?? '';
+    final tagLine = model.movieDetails?.tagline ?? '';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -310,7 +311,7 @@ class _ReviewWidget extends StatelessWidget {
                 tagLine,
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                    color: model?.getColorList.darkVibrantColor?.bodyTextColor,
+                    color: model.getColorList.darkVibrantColor?.bodyTextColor,
                     fontSize: 18,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w400),
@@ -320,7 +321,7 @@ class _ReviewWidget extends StatelessWidget {
           child: Text(
             'Обзор',
             style: TextStyle(
-                color: model?.getColorList.darkVibrantColor?.bodyTextColor,
+                color: model.getColorList.darkVibrantColor?.bodyTextColor,
                 fontSize: 21,
                 fontWeight: FontWeight.w600),
           ),
@@ -331,7 +332,7 @@ class _ReviewWidget extends StatelessWidget {
                 overview,
                 style: TextStyle(
                   fontSize: 16,
-                  color: model?.getColorList.darkVibrantColor?.bodyTextColor,
+                  color: model.getColorList.darkVibrantColor?.bodyTextColor,
                 ),
               ),
         Padding(
@@ -350,9 +351,8 @@ class _DirectorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-
-    var crew = model?.movieDetails?.credits.crew;
+      final model = context.watch<MovieDetailsModel>();
+    var crew = model.movieDetails?.credits.crew;
 
     //эта штука дает понять что дальше в коде модель точно не нал
     if (crew == null || crew.isEmpty) return const SizedBox.shrink();

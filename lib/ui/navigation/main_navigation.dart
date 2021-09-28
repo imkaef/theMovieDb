@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/auth/auth_model.dart';
 import 'package:the_movie_db/ui/widgets/auth/auth_widget.dart';
@@ -20,8 +21,9 @@ abstract class MainNavigationRouteNames {
 // утащим роуты для удобного использования в отдельный файл
 class MainNavigation {
   // Сюда сохраняем созданные модельки
-  Map<int, MovieDetailsModel> modelMap = {};
-
+  Map<int, MovieDetailsModel> modelMap = {631843: MovieDetailsModel(631843)};
+  //  {movieId: MovieDetailsModel(movieId)};
+//631843
   String initialRoute(bool isAuth) => isAuth
       ? MainNavigationRouteNames.mainScreen
       : MainNavigationRouteNames.auth;
@@ -50,9 +52,10 @@ class MainNavigation {
           print(value.movieDetails?.title);
         }
         return MaterialPageRoute(
-          builder: (context) => NotifierProvider(
-            create: () => modelMap[movieId] as MovieDetailsModel,
-            isManagingModel: false,
+          builder: (context) => ChangeNotifierProvider.value(
+            value: modelMap[movieId],
+            // create: () => modelMap[movieId] as MovieDetailsModel,
+            //  isManagingModel: false,
             // create: () => MovieDetailsModel(movieId),
             // create: () => modelMap[movieId] != null
             //     ? modelMap[movieId]

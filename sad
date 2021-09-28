@@ -1,0 +1,545 @@
+[33mcommit be51ffe7d32dfc558b86e43ad22303076f5c1c73[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Sep 24 22:30:11 2021 +0300
+
+    save model for cash data
+
+[33mcommit 7e926034b6c088e76891587118b54cf23ea4ded9[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 15 03:17:48 2021 +0300
+
+    readme change
+
+[33mcommit 21f738cd980d83bfc4a917c466da554ee538e08d[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 15 03:15:38 2021 +0300
+
+    readme change
+
+[33mcommit 57afde7e68b6ba0763030d3d03d710714835ea66[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 15 03:14:30 2021 +0300
+
+    readme change
+
+[33mcommit 4685bf521b854f9f6d513e3de2b40d2b22e453fb[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 15 03:12:57 2021 +0300
+
+    readme change
+
+[33mcommit 2596cbd838d50711cd5e753f88a08dac030d870c[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 15 02:51:18 2021 +0300
+
+    readme change
+
+[33mcommit b8d949a6a50e0994e083b24f4ac3f2a3a25b7322[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 15 02:41:45 2021 +0300
+
+    circle progress indicator done
+
+[33mcommit 9009ffbb1774027b730e7fa613c10cc9e561a178[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 15 02:01:02 2021 +0300
+
+    change color on title in movie details
+
+[33mcommit 20903abf3874ce037162f1bf34f5601db4e92511[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 15 00:44:55 2021 +0300
+
+    generate color from poster
+
+[33mcommit 6132385aa8c54f97fdbbca08dcd360152bb9ce3c[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Sep 14 17:00:57 2021 +0300
+
+    make asFavorite like unlike done
+
+[33mcommit 14e530bd9b7ec44f2337fba48f615de5a1396be4[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sat Sep 11 21:43:08 2021 +0300
+
+    i can take like but i dont like call back
+
+[33mcommit ec54cf5e63f747eddd12340066cb16c424fbf5cb[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Sep 10 19:57:47 2021 +0300
+
+    add youtube pubdev and create player
+
+[33mcommit 1e290da97f02366d403b2496dc9297548ec5fd56[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Sep 10 19:18:36 2021 +0300
+
+    add route on trailer page and create videos class
+
+[33mcommit cfddf79c83d9f4d095695b291bbc35461b2d95f5[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 1 14:49:47 2021 +0300
+
+    readme change
+
+[33mcommit 557d69efabd19e0b54a0c3b0da6b34b1564469d4[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 1 03:08:25 2021 +0300
+
+    add cast download
+
+[33mcommit bebf80896d718a47c384cd62801fdd2b9b8157ca[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Sep 1 02:03:53 2021 +0300
+
+    crew Widget try make
+
+[33mcommit 7669e743e540a2edead5c4f256f114f764f250d4[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 31 22:38:27 2021 +0300
+
+    Create movie details credits
+
+[33mcommit 3ed4934f59813c09de987c533b4b1fbecff897b0[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 31 22:30:27 2021 +0300
+
+    Create movie details casrs
+
+[33mcommit 92b0d147727fa887d15777be2c575ba7965ab7b4[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sat Aug 28 01:45:25 2021 +0300
+
+    details summary nice
+
+[33mcommit cc55d13f5c16ea91922899dc204dbad422b28612[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sat Aug 28 01:41:14 2021 +0300
+
+    details summary
+
+[33mcommit da944215a99c3c18d8c24910422f5fee66f4c8a4[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 22:18:53 2021 +0300
+
+    json done
+
+[33mcommit 56fb3c8331c74a680ced65a3d02731f146e8b177[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 22:16:39 2021 +0300
+
+    radial editing
+
+[33mcommit a1c6c7a2c9cb9990e5da84a36cc9717fdc4a7d4b[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 21:43:22 2021 +0300
+
+    otmena
+
+[33mcommit c65508cba7b0923af4bc10a2f0d13122578012ab[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 21:39:42 2021 +0300
+
+    customProgressBarStfull
+
+[33mcommit 52657fab8d62fa3ab457424640823bfdbfac5fa2[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 21:38:37 2021 +0300
+
+    original title in movie detail screen
+
+[33mcommit 5e00fa77bffd95138c2b802415f93eaa651467e1[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 21:21:43 2021 +0300
+
+    cant win this fight
+
+[33mcommit 344a46de0a13a6452c2bc0c61d7b8ed66a67d52f[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 20:46:11 2021 +0300
+
+    try colors from picture
+
+[33mcommit 6be9db7389b9d1f70b455aa86aea1e095c087fe0[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 19:40:36 2021 +0300
+
+    open screen with download images dont work
+
+[33mcommit a633f2628b9105511aaa2d8fcc260dd15b779d9c[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 04:39:44 2021 +0300
+
+    some text done
+
+[33mcommit 3de79565a28efc9deb9ce662865f9a3c9e8ade04[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 04:18:30 2021 +0300
+
+    image show done
+
+[33mcommit 63263c32c1f6045bbd22e8fc8e8e2c5c5da185ac[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 03:50:58 2021 +0300
+
+    fix error
+
+[33mcommit 6e025a4d2a2adc3a4777b843ed67b5be3e2af079[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 03:46:23 2021 +0300
+
+    error in movie_details.dart class
+
+[33mcommit eb8d360923f589781bcbfc54900c65ee521743d4[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 03:21:06 2021 +0300
+
+    dont work because locale null
+
+[33mcommit d7fcd9418833e4d91c2c801c2e5357c626432efe[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 03:07:38 2021 +0300
+
+    setup locale done
+
+[33mcommit 5193555963f056a7a6b970736ff0d61adc4ff72a[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 03:06:38 2021 +0300
+
+    ыуегз дщсфду
+
+[33mcommit e9824ac3d4b58e03978eeafcac639a0c8f53b164[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 03:00:24 2021 +0300
+
+    ismanaget widget for provide
+
+[33mcommit 9115f1ebcf1cf35b5d0ade4001c06632e084c4e7[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 27 02:55:15 2021 +0300
+
+    create statfull for inherited provider vidget
+
+[33mcommit 06c48a86624271604c88903523019064fd427ac8[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 26 21:44:59 2021 +0300
+
+    model moviedetails and return get
+
+[33mcommit 1718818e123be43034b71a8232ca744019d400e3[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 26 21:43:48 2021 +0300
+
+    model moviedetails
+
+[33mcommit e9df94f78212161ed0a86fbc5bf31620ad8d630d[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 26 21:27:47 2021 +0300
+
+    create model moviedetails list
+
+[33mcommit 4ad8955ce69b377a3041bd04334b32102db08ed7[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 26 21:16:22 2021 +0300
+
+    movie date parser
+
+[33mcommit 2a22b47713162181922f5dc9b910288ab690234c[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 26 21:11:25 2021 +0300
+
+    moviedetails class
+
+[33mcommit 996002b78f07d47192579bb32b4b6e2d7f25e2f7[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 17 01:44:54 2021 +0300
+
+    search with delay done
+
+[33mcommit 5acd2fb0551b47dcd3570f1fc8e3dcbe41827f47[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Mon Aug 16 18:09:33 2021 +0300
+
+    pagination save at error
+
+[33mcommit 393ab5078d86e45781bb7b74ed434b27083bd081[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Mon Aug 16 17:50:56 2021 +0300
+
+    pagination
+
+[33mcommit cc9a7f930d2acfeb9c4d569352e9f4eeb8b7b3b7[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sun Aug 15 23:42:51 2021 +0300
+
+    fix locale
+
+[33mcommit 949b38f6f275d387c7ab21037f2e8ab53ccdde94[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sun Aug 15 22:51:35 2021 +0300
+
+    movie date fix
+
+[33mcommit ee37747b9a5bbed75a7796bd5f0c29eae4f65544[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sun Aug 15 22:33:42 2021 +0300
+
+    picture done
+
+[33mcommit c26ec283711892ac2b7a8d88439a7ff0de718873[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sun Aug 15 22:10:08 2021 +0300
+
+    download movie
+
+[33mcommit 993c2f812c14ed025d9cd7967f6a0d5450d46539[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sun Aug 15 22:03:06 2021 +0300
+
+    add model and start main list model
+
+[33mcommit 8161c0e81abc5c8238e61a7c3a85c5d6c8e19a8f[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sun Aug 15 21:50:49 2021 +0300
+
+    update movie list file create model change sttfl to stles
+
+[33mcommit 817d88c4e8de461dd0730264e4f90f74b52a3844[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sun Aug 15 21:26:31 2021 +0300
+
+    get popular movie done
+
+[33mcommit 7a5746c47249c851dbe7f72ef95a409d8282f188[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 13 02:41:36 2021 +0300
+
+    Форма авторизации готова, отлов ошибок тоже готов
+
+[33mcommit b9164a9790e3de7dbe091d57b005e104d22551f8[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 13 02:11:55 2021 +0300
+
+    super code post get
+
+[33mcommit 80989c10016b2add870167d12a84c141fa73b06f[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 13 01:56:10 2021 +0300
+
+    universal post
+
+[33mcommit 8bdd18101d3aab32cf56c2fd32adea6742c5eece[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 13 01:37:30 2021 +0300
+
+    universal get quere
+
+[33mcommit 94cb365d0276f21fcea3d4715cc08b11aebfab08[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 13 01:26:57 2021 +0300
+
+    sokratil cod
+
+[33mcommit e7f570044d40f68df79619c0ff03b7626f85747f[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 13 01:13:05 2021 +0300
+
+    found error
+
+[33mcommit c2b2b169c8b05b4a872009586b686e4e9e882078[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 13 01:08:27 2021 +0300
+
+    error other error
+
+[33mcommit 21947dae8ec56c40b1e23a6a4ae01cb37245aaf7[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 12 23:34:38 2021 +0300
+
+    add universal inherit
+
+[33mcommit d34f444cde299d012093ec4f6cf88504217424cd[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 12 23:01:50 2021 +0300
+
+    Create universal Provider and change na old
+
+[33mcommit b0a267f29ad8af45e2ea481a447c84840878209e[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 12 22:32:11 2021 +0300
+
+    Универсальный класс модели
+
+[33mcommit a603b0dfe6f81c84de244bf163307ade1b1ca187[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Aug 11 02:01:42 2021 +0300
+
+    remove print
+
+[33mcommit fe47a7cd1dfe0e02a7018187d3380d4cf8dd0991[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Aug 11 01:43:04 2021 +0300
+
+    make up auth widget
+
+[33mcommit 50a71adf9c9ef83a69df543cdc361727b20ddb4a[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Aug 11 00:06:32 2021 +0300
+
+    page back and up
+
+[33mcommit 2d9850ea6105cfd0074bc0f23438b6a22d0765e1[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 21:48:03 2021 +0300
+
+    fix _onMovieTap and navigation
+
+[33mcommit 93389eecb3f345fcc630a1958c38f76d9dfddf6c[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 21:25:56 2021 +0300
+
+    page generator
+
+[33mcommit 972ba3f1e6a1375bd2068cda4f47bb0f8f7d9968[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 21:18:17 2021 +0300
+
+    set initial route on function
+
+[33mcommit bfc95eea5e2b3056c928477dfe71ad181a4e400b[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 21:03:42 2021 +0300
+
+    navigation change folder
+
+[33mcommit ebd0d534923a6bc2c8f637b83a94ecf30ed2d0be[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 20:42:18 2021 +0300
+
+    отключил тесты изменил версию андройд сдк чтоб работал secure storage
+
+[33mcommit b2c012ea4f8c056e7bbdd749a5dd61a44d0ccca5[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 20:28:10 2021 +0300
+
+    fucking tests and change android sdk
+
+[33mcommit 71f223e4b46f9ea75a06af8351119bce1836ad83[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 19:42:43 2021 +0300
+
+    save session id on privider
+
+[33mcommit 09493da444ab76cb6a38112e3bc03f1ff9236b90[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 19:33:44 2021 +0300
+
+    Session id + errors fix
+
+[33mcommit 88d04b17d7dec61df8d2fc3c15b7c58fddbe7fa5[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 01:48:22 2021 +0300
+
+    add MakeUrl Method
+
+[33mcommit 4a2b936517b1dee803d069cadc1e836c685c5cd3[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 01:33:09 2021 +0300
+
+    api_client done
+
+[33mcommit df9c1e663163604348c1668cf4fb17b75d59f66b[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 00:30:09 2021 +0300
+
+    make erromessage widget and add him to tree
+
+[33mcommit 4d6c835c30a8ec83d47ea66986831adac1a4492e[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Tue Aug 10 00:09:41 2021 +0300
+
+    add auth model inherit and class change FormWidget from stful to stles
+
+[33mcommit c21d748ea2b1747d4ec5fcee25bd034244951312[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Mon Aug 9 19:41:30 2021 +0300
+
+    add shader Mask on top image
+
+[33mcommit a8327b9c87df9901620865b5946f9c2c6d17e741[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sun Aug 8 00:28:55 2021 +0300
+
+    actors column listview
+
+[33mcommit b97119622663dfd76e955b4c142efb5ec35c89c6[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Sat Aug 7 03:44:08 2021 +0300
+
+    Movie card
+
+[33mcommit d1c2433a1c0870dc12015ecd9470252a5948186c[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 6 22:48:46 2021 +0300
+
+    add circleprogress bar in news
+
+[33mcommit c8305305260437c9e3af25a3f50ea33c94c79b59[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Fri Aug 6 21:48:35 2021 +0300
+
+    CircleProgressBar
+
+[33mcommit e08fe837ad6ec20c30e64a6c7575d6c4e9a826ac[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 5 03:25:28 2021 +0300
+
+    readme
+
+[33mcommit 4e3527d564fa299ed5a5a5ca0ea0cb0f64d26b31[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 5 03:19:58 2021 +0300
+
+    readme
+
+[33mcommit 298f3a48a3922f8d8c57e48192da16aab10b808f[m
+Author: Sergio <psih.serg@gmail.com>
+Date:   Thu Aug 5 03:18:43 2021 +0300
+
+    Update README.md
+
+[33mcommit 6e3b91233c842f74cf74288dfd53280277cf4cdd[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 5 03:15:24 2021 +0300
+
+    add search
+
+[33mcommit 120d7cbcb2d087f26750edcefdc86098959e29c0[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Thu Aug 5 01:53:15 2021 +0300
+
+    add inkwell card
+
+[33mcommit eaee82ef02541de23e7f12f92ffda69734c667a1[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Aug 4 23:05:41 2021 +0300
+
+    listview Builder and 1 images
+
+[33mcommit 6566136ebbca74baa83f4ddd04c4b4bc90b9993f[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Aug 4 22:10:33 2021 +0300
+
+    Bottom navigation bar
+
+[33mcommit 2e10332e443c4516f5446893dbccfb4cce1bc419[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Aug 4 21:36:12 2021 +0300
+
+    screen route
+
+[33mcommit ef4e306c485dcd4fe138f7a7e57097bd90f57fd0[m
+Author: Sergey <Sergey.popov.fly@gmail.com>
+Date:   Wed Aug 4 18:05:22 2021 +0300
+
+    screen auth

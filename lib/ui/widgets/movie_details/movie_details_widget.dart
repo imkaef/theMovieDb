@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_main_info_widget.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
@@ -16,8 +17,9 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
     //получаем нашу модель и выполняем сетап локаль итаким
     //образом настраиваем локаль и подписываемся на измениние локали
     super.didChangeDependencies();
-    NotifierProvider.readFromModel<MovieDetailsModel>(context)
-        ?.setupLocale(context);
+    // NotifierProvider.readFromModel<MovieDetailsModel>(context)
+    //     ?.setupLocale(context);
+    context.watch<MovieDetailsModel>().setupLocale(context);
   }
 
   @override
@@ -41,17 +43,17 @@ class _BodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
+    final model = context.watch<MovieDetailsModel>();
     // final movieDetails = model?.movieDetails;
     // if (model?.backDrop == null || model?.getColor == null)
     // return SizedBox.shrink();
-    if (model?.isloading == true || model?.getColorList == null)
+    if (model.isloading == true || model.getColorList == null)
       return Center(
         child: const CircularProgressIndicator(),
       );
     return ColoredBox(
-      color: model?.getColorList != null
-          ? model!.getColorList.dominantColor!.color
+      color: model.getColorList != null
+          ? model.getColorList.dominantColor!.color
           : Colors.white,
       child: ListView(
         children: [
@@ -73,7 +75,7 @@ class _TitleWidget extends StatelessWidget {
 // а так как виджет перенесен отдельно аппбар и скаффолд перезагружаться не Будут
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-    return Text(model?.movieDetails?.title ?? 'Загрузка...');
+       final model = context.watch<MovieDetailsModel>();
+    return Text(model.movieDetails?.title ?? 'Загрузка...');
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:the_movie_db/domain/api_client/api_client.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_model.dart';
@@ -59,8 +60,10 @@ class _ActorListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watchOnModel<MovieDetailsModel>(context);
-    var cast = model?.movieDetails?.credits.cast;
+       final model = context.watch<MovieDetailsModel>();
+   //   final model = context.watch<MovieDetailsModel>();
+      // final model = context.watch<MovieDetailsModel>();
+    var cast = model.movieDetails?.credits.cast;
     if (cast == null || cast.isEmpty) return const SizedBox.shrink();
     cast.sort((a, b) => b.popularity.compareTo(a.popularity));
     return ListView.builder(
@@ -84,9 +87,10 @@ class _ActorListItemWidget extends StatelessWidget {
   final int actroIndex;
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.readFromModel<MovieDetailsModel>(context);
+       final model = context.read<MovieDetailsModel>();
+   // final model = NotifierProvider.readFromModel<MovieDetailsModel>(context);
     //палки смерти здесь потомучто модель существует, а если нет этот виджет не нарисуется
-    final actor = model!.movieDetails!.credits.cast[actroIndex];
+    final actor = model.movieDetails!.credits.cast[actroIndex];
     final profilePath = actor.profilePath;
     return Padding(
       padding: const EdgeInsets.all(8.0),
