@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie_db/domain/api_client/api_client.dart';
+import 'package:the_movie_db/domain/data/api_client/api_client.dart';
+
 import 'package:the_movie_db/domain/inherited/provider.dart';
-import 'package:the_movie_db/ui/widgets/movie_list/movie_list_model.dart';
+import 'package:the_movie_db/domain/use_case/movie_list_model.dart';
 
 class MovieListWidget extends StatelessWidget {
   const MovieListWidget({Key? key}) : super(key: key);

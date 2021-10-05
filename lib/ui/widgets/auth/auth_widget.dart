@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
-import 'package:the_movie_db/ui/widgets/auth/auth_model.dart';
+import 'package:the_movie_db/domain/use_case/auth_model.dart';
 
 class AuthWidget extends StatefulWidget {
   const AuthWidget({Key? key}) : super(key: key);

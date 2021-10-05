@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:the_movie_db/domain/data_providers/session_data_provider.dart';
-import 'package:the_movie_db/ui/navigation/main_navigation.dart';
+import 'package:the_movie_db/domain/data/data_providers/session_data_provider.dart';
+import 'package:the_movie_db/theme/presenter/navigation/main_navigation.dart';
 
 class SerialsListWidget extends StatelessWidget {
   const SerialsListWidget({

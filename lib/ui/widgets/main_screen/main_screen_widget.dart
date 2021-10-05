@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_movie_db/domain/inherited/provider.dart';
-import 'package:the_movie_db/ui/widgets/movie_list/movie_list_model.dart';
+import 'package:the_movie_db/domain/use_case/movie_list_model.dart';
 import 'package:the_movie_db/ui/widgets/movie_list/movie_list_widget.dart';
 import 'package:the_movie_db/ui/widgets/news_screen/news_screen_widget.dart';
 import 'package:the_movie_db/ui/widgets/serials_screen/serials_screen_widget.dart';
