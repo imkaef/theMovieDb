@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:the_movie_db/domain/data/api_client/api_client.dart';
-import 'package:the_movie_db/domain/data/data_providers/session_data_provider.dart';
+import 'package:the_movie_db/data/api_client/api_client.dart';
+import 'package:the_movie_db/data/data_providers/session_data_provider.dart';
 import 'package:the_movie_db/domain/entity/movie_details.dart';
-import 'package:the_movie_db/theme/presenter/navigation/main_navigation.dart';
+import 'package:the_movie_db/presenter/navigation/main_navigation.dart';
 
 class MovieDetailsModel extends ChangeNotifier {
   final _apiClient = ApiClient();

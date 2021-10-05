@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:the_movie_db/domain/data/api_client/api_client.dart';
+import 'package:the_movie_db/data/api_client/api_client.dart';
 import 'package:the_movie_db/domain/entity/movie.dart';
 import 'package:the_movie_db/domain/entity/popular_movie_response.dart';
-import 'package:the_movie_db/theme/presenter/navigation/main_navigation.dart';
+import 'package:the_movie_db/presenter/navigation/main_navigation.dart';
 
 
 class MovieListModel extends ChangeNotifier {

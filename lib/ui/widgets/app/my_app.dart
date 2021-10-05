@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
-import 'package:the_movie_db/theme/presenter/navigation/main_navigation.dart';
+import 'package:the_movie_db/presenter/navigation/main_navigation.dart';
+import 'package:the_movie_db/use_case/my_app_model.dart';
 
-import 'package:the_movie_db/domain/use_case/my_app_model.dart';
 
 class MyApp extends StatelessWidget {
   static final mainNavigation = MainNavigation();

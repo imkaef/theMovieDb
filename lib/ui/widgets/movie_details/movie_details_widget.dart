@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:the_movie_db/domain/inherited/provider.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_main_info_widget.dart';
-import 'package:the_movie_db/domain/use_case/movie_details_model.dart';
 import 'package:the_movie_db/ui/widgets/movie_details/movie_details_screen_cast_widget.dart';
+import 'package:the_movie_db/use_case/movie_details_model.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
   const MovieDetailsWidget({Key? key}) : super(key: key);

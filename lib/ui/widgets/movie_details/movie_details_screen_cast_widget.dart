@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:the_movie_db/domain/data/api_client/api_client.dart';
+import 'package:the_movie_db/data/api_client/api_client.dart';
+import 'package:the_movie_db/use_case/movie_details_model.dart';
 
 // import 'package:the_movie_db/domain/inherited/provider.dart';
-import 'package:the_movie_db/domain/use_case/movie_details_model.dart';
 
 class MovieDetailsMainScreenCastWidget extends StatelessWidget {
   const MovieDetailsMainScreenCastWidget({Key? key}) : super(key: key);
