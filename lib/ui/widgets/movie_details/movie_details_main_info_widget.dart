@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_movie_db/Theme/app_colors.dart';
 import 'package:the_movie_db/domain/entity/movie_details_credits.dart';
-import 'package:the_movie_db/ui/widgets/customProgressBarWidgetScreen.dart';
+import 'package:the_movie_db/ui/widgets/custom_widgets/customProgressBarWidgetScreen.dart';
 import 'package:the_movie_db/use_case/movie_details_model.dart';
 
 class MovieDetailsMainInfoWidget extends StatelessWidget {
